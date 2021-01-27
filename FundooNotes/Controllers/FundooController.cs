@@ -35,6 +35,36 @@ namespace FundooNotes.Controllers
             {
                 return BadRequest();
             }
-        }  
+        }
+
+        [HttpPost]
+        [Route("api/login")]
+        public IActionResult LoginEmployee([FromBody] LoginModel model)
+        {
+            bool result = this.manager.LoginManager(model);
+            if (result)
+            {
+                return this.Ok(new { success = true, Message = "Login successfully", Data = result });
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Route("api/sendEmail")]
+        public IActionResult ResetPasswords([FromBody] ForgotPasswordModel emailAddress)
+        {
+            var result = this.manager.SendEmailManager(emailAddress);
+            if (result)
+            {
+                return this.Ok(new { success = true, Message = "Password Send successfully", Data = result });
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
     }
 }

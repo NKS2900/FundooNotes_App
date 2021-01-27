@@ -28,5 +28,17 @@ namespace FundooManager
             bool result = repository.RegisterUser(model);
             return result;
         }
+
+        public bool LoginManager(LoginModel model)
+        {
+            bool result = repository.LoginValidation(model.Email, model.Password);
+            return result;
+        }
+
+        public bool SendEmailManager(ForgotPasswordModel model)
+        {
+            var result = this.repository.SendEmail(model.Email);
+            return result;
+        }
     }
 }

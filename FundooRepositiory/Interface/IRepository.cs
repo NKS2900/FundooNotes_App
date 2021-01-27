@@ -14,5 +14,9 @@ namespace FundooRepositiory
     {
         public bool RegisterUser(FundooModels model);
 
+        public bool LoginValidation(string Email, string Password);
+       
+        public bool SendEmail(string email);
+
     }
 }

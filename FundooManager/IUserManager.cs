@@ -13,5 +13,10 @@ namespace FundooManager
     public interface IUserManager
     {
         public bool RegisterManager(FundooModels model);
+
+        public bool LoginManager(LoginModel model);
+
+        public bool SendEmailManager(ForgotPasswordModel madel);
+
     }
 }
