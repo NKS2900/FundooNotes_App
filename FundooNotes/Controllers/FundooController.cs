@@ -68,6 +68,21 @@ namespace FundooNotes.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/reset")]
+        public IActionResult ResetPasswords([FromBody] LoginModel model)
+        {
+            bool result = this.manager.ResetPasswordManager(model);
+            if (result)
+            {
+                return this.Ok(new { success = true, Message = "Password Reset successfully", Data = result });
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
         [HttpGet]
         [Route("api/show")]
         public IActionResult ShowAllUsers()

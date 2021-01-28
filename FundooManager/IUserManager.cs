@@ -41,6 +41,13 @@ namespace FundooManager
         public bool ForgotPass(string mail);
 
         /// <summary>
+        /// Reset password using Email
+        /// </summary>
+        /// <param name="model">login model</param>
+        /// <returns></returns>
+        public bool ResetPasswordManager(LoginModel model);
+
+        /// <summary>
         /// get all user records
         /// </summary>
         /// <returns>return all records</returns>

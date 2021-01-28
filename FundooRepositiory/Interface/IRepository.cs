@@ -48,7 +48,7 @@ namespace FundooRepositiory
         /// Reset password
         /// </summary>
         /// <param name="login">passing loginModel</param>
-        /// <returns></returns>
+        /// <returns>return True or False</returns>
         public bool ResetPassword(LoginModel login);
 
         /// <summary>

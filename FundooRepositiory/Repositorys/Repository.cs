@@ -18,6 +18,7 @@ namespace FundooRepositiory
     using System.Net.Mail;
     using System.Security.Claims;
     using System.Text;
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     /// Repository for FundooNotes
@@ -155,6 +156,28 @@ namespace FundooRepositiory
             smtp.Port = 587;
             smtp.Send(mailMessage);
             return true;
+        }
+
+        /// <summary>
+        /// Reset password
+        /// </summary>
+        /// <param name="login">passing loginModel</param>
+        /// <returns>return True or False</returns>
+        public bool ResetPassword(LoginModel login)
+        {
+            var dbEntry = fundooContext.FundooTable.FirstOrDefault(acc => acc.Email == login.Email);
+            string newPass = login.Password;
+            if (dbEntry != null)
+            {
+                dbEntry.Password = newPass;
+                fundooContext.Entry(dbEntry).State = EntityState.Modified;
+                fundooContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>

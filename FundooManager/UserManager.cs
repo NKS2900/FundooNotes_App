@@ -75,6 +75,17 @@ namespace FundooManager
         }
 
         /// <summary>
+        /// Reset password using Email
+        /// </summary>
+        /// <param name="model">login model</param>
+        /// <returns></returns>
+        public bool ResetPasswordManager(LoginModel model)
+        {
+            var result = this.repository.ResetPassword(model);
+            return result;
+        }
+
+        /// <summary>
         /// Get all user data
         /// </summary>
         /// <returns></returns>
