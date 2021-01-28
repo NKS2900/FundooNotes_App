@@ -23,6 +23,16 @@ namespace FundooRepositiory
         public bool RegisterUser(FundooModels model);
 
         /// <summary>
+<<<<<<< HEAD
+=======
+        /// Password Encryption method
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public string PasswordEncryption(string password);
+
+        /// <summary>
+>>>>>>> UC1_FundooNotes
         /// Login Validation method
         /// </summary>
         /// <param name="email">user Email</param>
@@ -43,6 +53,7 @@ namespace FundooRepositiory
         /// <param name="email">user E-mail</param>
         /// <returns>it returns True or False</returns>
         public bool ForgotPassword(string email);
+<<<<<<< HEAD
 
         /// <summary>
         /// Reset password
@@ -52,6 +63,17 @@ namespace FundooRepositiory
         public bool ResetPassword(LoginModel login);
 
         /// <summary>
+=======
+
+        /// <summary>
+        /// Reset password
+        /// </summary>
+        /// <param name="login">passing loginModel</param>
+        /// <returns>return True or False</returns>
+        public bool ResetPassword(LoginModel login);
+
+        /// <summary>
+>>>>>>> UC1_FundooNotes
         /// Get all user records
         /// </summary>
         /// <returns>it returns all records</returns>

@@ -42,12 +42,36 @@ namespace FundooRepositiory
         }
 
         /// <summary>
+<<<<<<< HEAD
+=======
+        /// Password Encryption
+        /// </summary>
+        /// <param name="password">user password</param>
+        /// <returns></returns>
+        public string PasswordEncryption(string password)
+        {
+            try
+            {
+                byte[] encData_byte = new byte[password.Length];
+                encData_byte = Encoding.UTF8.GetBytes(password);
+                string encodedPassword = Convert.ToBase64String(encData_byte);
+                return encodedPassword;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in base64Encode" + ex.Message);
+            }
+        }
+        /// <summary>
+>>>>>>> UC1_FundooNotes
         /// adding user in database 
         /// </summary>
         /// <param name="model">passing model</param>
         /// <returns>return True or False</returns>
         public bool RegisterUser(FundooModels model)
         {
+            string encodedPass = PasswordEncryption(model.Password);
+            model.Password = encodedPass;
             fundooContext.FundooTable.Add(model);
             var emp = fundooContext.SaveChanges();
             if (emp > 0)
@@ -68,7 +92,8 @@ namespace FundooRepositiory
         /// <returns>return True or False</returns>
         public bool LoginValidation(string email, string password)
         {
-            var userData = fundooContext.FundooTable.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
+            string encodedPass = PasswordEncryption(password);
+            var userData = fundooContext.FundooTable.Where(x => x.Email == email && x.Password == encodedPass).SingleOrDefault();
             
             if (userData != null)
             { 
@@ -168,9 +193,16 @@ namespace FundooRepositiory
         {
             var dbEntry = fundooContext.FundooTable.FirstOrDefault(acc => acc.Email == login.Email);
             string newPass = login.Password;
+<<<<<<< HEAD
             if (dbEntry != null)
             {
                 dbEntry.Password = newPass;
+=======
+            string encodedPass = PasswordEncryption(newPass);
+            if (dbEntry != null)
+            {
+                dbEntry.Password = encodedPass;
+>>>>>>> UC1_FundooNotes
                 fundooContext.Entry(dbEntry).State = EntityState.Modified;
                 fundooContext.SaveChanges();
                 return true;
