@@ -17,12 +17,6 @@ namespace FundooModel.Models
     public class FundooModels
     {
         /// <summary>
-        /// Id with primary key
-        /// </summary>
-        [Key]
-        public int Id { get; set; }
-
-        /// <summary>
         /// set and get FirstName
         /// </summary>
         public string FirstName { get; set; }
@@ -35,6 +29,7 @@ namespace FundooModel.Models
         /// <summary>
         /// set and get Email
         /// </summary>
+        [Key]
         public string Email { get; set; }
 
         /// <summary>

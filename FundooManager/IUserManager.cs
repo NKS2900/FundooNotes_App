@@ -16,7 +16,10 @@ namespace FundooManager
 
         public bool LoginManager(LoginModel model);
 
-        public bool SendEmailManager(ForgotPasswordModel madel);
+        public string GenerateToken(string UserEmail);
 
+        public bool SendEmailManager(string mail);
+
+        public IEnumerable<FundooModels> GetAllUsers();
     }
 }

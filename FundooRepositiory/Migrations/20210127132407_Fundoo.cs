@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using MySql.Data.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FundooRepositiory.Migrations
 {
-    public partial class Fundo : Migration
+    public partial class Fundoo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,16 +10,14 @@ namespace FundooRepositiory.Migrations
                 name: "FundooTable",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(type: "varchar(255) CHARACTER SET utf8mb4", nullable: false),
                     FirstName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     LastName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Password = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FundooTable", x => x.Id);
+                    table.PrimaryKey("PK_FundooTable", x => x.Email);
                 });
         }
 

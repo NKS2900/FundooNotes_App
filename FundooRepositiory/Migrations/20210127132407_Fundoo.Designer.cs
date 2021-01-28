@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundooRepositiory.Migrations
 {
     [DbContext(typeof(FundooContext))]
-    [Migration("20210126033819_Fundo")]
-    partial class Fundo
+    [Migration("20210127132407_Fundoo")]
+    partial class Fundoo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,12 +20,8 @@ namespace FundooRepositiory.Migrations
 
             modelBuilder.Entity("FundooModel.Models.FundooModels", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -36,7 +32,7 @@ namespace FundooRepositiory.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.HasKey("Id");
+                    b.HasKey("Email");
 
                     b.ToTable("FundooTable");
                 });

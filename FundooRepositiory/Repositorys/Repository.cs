@@ -8,16 +8,26 @@
 namespace FundooRepositiory
 {
     using FundooModel.Models;
+    using Microsoft.IdentityModel.Tokens;
+    using System;
     using System.Collections.Generic;
+    using System.IdentityModel.Tokens;
+    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
+    using System.Security.Claims;
+    using System.Text;
 
     /// <summary>
-    /// Repository for 
+    /// Repository for FundooNotes
     /// </summary>
     public class Repository : IRepository
     {
+        public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Repository.SECRET_KEY));
+
+        private const string SECRET_KEY = "This is Secret authentication Key";
+
         private readonly FundooContext fundooContext;
         public Repository(FundooContext fundooContext)
         {
@@ -39,7 +49,7 @@ namespace FundooRepositiory
 
         public bool LoginValidation(string email, string password)
         {
-            var userData = fundooContext.FundooTable.Where(x => x.Email == email && x.Password == password).FirstOrDefault();
+            var userData = fundooContext.FundooTable.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
             
             if (userData != null)
             {
@@ -50,6 +60,21 @@ namespace FundooRepositiory
                 return false;
             }
         }
+
+        public string GenerateTokens(string UserEmail)
+        {
+            var token = new JwtSecurityToken(
+                claims: new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, UserEmail)
+                },
+                notBefore: new DateTimeOffset(DateTime.Now).DateTime,
+                expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
+                signingCredentials: new SigningCredentials(SIGNING_KEY, SecurityAlgorithms.HmacSha256)
+                );
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
 
         public bool SendEmail(string emailAddress)
         {
@@ -85,5 +110,12 @@ namespace FundooRepositiory
                 return true;
             }
         }
+
+        public IEnumerable<FundooModels> GetAllRecords()
+        {
+            var users = fundooContext.FundooTable.ToList();
+            return users;
+        }
+
     }
 }

@@ -35,10 +35,22 @@ namespace FundooManager
             return result;
         }
 
-        public bool SendEmailManager(ForgotPasswordModel model)
+        public string GenerateToken(string email)
         {
-            var result = this.repository.SendEmail(model.Email);
+            string getToken = repository.GenerateTokens(email);
+            return getToken;
+        }
+
+        public bool SendEmailManager(string mail)
+        {
+            var result = this.repository.SendEmail(mail);
             return result;
+        }
+
+        public IEnumerable<FundooModels> GetAllUsers()
+        {
+            var getAll = this.repository.GetAllRecords();
+            return getAll;
         }
     }
 }

@@ -12,10 +12,11 @@ namespace FundooNotes.Controllers
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
-
+ 
     [ApiController]
     public class FundooController : Controller
     {
+       
         private readonly IUserManager manager;
         public FundooController(IUserManager manager)
         {
@@ -44,7 +45,8 @@ namespace FundooNotes.Controllers
             bool result = this.manager.LoginManager(model);
             if (result)
             {
-                return this.Ok(new { success = true, Message = "Login successfully", Data = result });
+                string getToken = manager.GenerateToken(model.Email);
+                return this.Ok(new { success = true, Message = "Login successfully", Data = result, getToken });
             }
             else
             {
@@ -54,7 +56,7 @@ namespace FundooNotes.Controllers
 
         [HttpGet]
         [Route("api/sendEmail")]
-        public IActionResult ResetPasswords([FromBody] ForgotPasswordModel emailAddress)
+        public IActionResult ResetPasswords(string emailAddress)
         {
             var result = this.manager.SendEmailManager(emailAddress);
             if (result)
@@ -64,6 +66,21 @@ namespace FundooNotes.Controllers
             else
             {
                 return this.BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Route("api/show")]
+        public IActionResult ShowAllUsers()
+        {
+            try
+            {
+                IEnumerable<FundooModels> list = this.manager.GetAllUsers();
+                return this.Ok(list);
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
             }
         }
     }
