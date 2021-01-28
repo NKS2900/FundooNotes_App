@@ -48,7 +48,7 @@ namespace FundooNotes
             {
                 jwtOptions.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    IssuerSigningKey = Repository.SIGNING_KEY,
+                    IssuerSigningKey = Repository.LOGIN_KEY,
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateIssuerSigningKey = true,

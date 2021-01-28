@@ -15,8 +15,7 @@ namespace FundooNotes.Controllers
  
     [ApiController]
     public class FundooController : Controller
-    {
-       
+    { 
         private readonly IUserManager manager;
         public FundooController(IUserManager manager)
         {
@@ -56,7 +55,7 @@ namespace FundooNotes.Controllers
 
         [HttpGet]
         [Route("api/forgot")]
-        public IActionResult ResetPasswords(string emailAddress)
+        public IActionResult ForgotPasswords(string emailAddress)
         {
             var result = this.manager.ForgotPass(emailAddress);
             if (result)
