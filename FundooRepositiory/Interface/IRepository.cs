@@ -20,7 +20,7 @@ namespace FundooRepositiory
 
         public IEnumerable<FundooModels> GetAllRecords();
        
-        public bool SendEmail(string email);
+        public bool ForgotPassword(string email);
 
     }
 }

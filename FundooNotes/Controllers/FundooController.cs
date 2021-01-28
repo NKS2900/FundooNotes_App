@@ -55,10 +55,10 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet]
-        [Route("api/sendEmail")]
+        [Route("api/forgot")]
         public IActionResult ResetPasswords(string emailAddress)
         {
-            var result = this.manager.SendEmailManager(emailAddress);
+            var result = this.manager.ForgotPass(emailAddress);
             if (result)
             {
                 return this.Ok(new { success = true, Message = "Password Send successfully", Data = result });

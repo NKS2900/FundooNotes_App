@@ -41,9 +41,9 @@ namespace FundooManager
             return getToken;
         }
 
-        public bool SendEmailManager(string mail)
+        public bool ForgotPass(string mail)
         {
-            var result = this.repository.SendEmail(mail);
+            var result = this.repository.ForgotPassword(mail);
             return result;
         }
 
