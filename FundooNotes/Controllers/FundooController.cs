@@ -15,8 +15,7 @@ namespace FundooNotes.Controllers
  
     [ApiController]
     public class FundooController : Controller
-    {
-       
+    { 
         private readonly IUserManager manager;
         public FundooController(IUserManager manager)
         {
@@ -30,7 +29,7 @@ namespace FundooNotes.Controllers
             bool result = manager.RegisterManager(model);
             if (result)
             {
-                return this.Ok(new { success = true, Message = "User Reginstered successfully", Data = result });
+                return this.Ok(new { success = true, Message = "User Reginstered successfully" });
             }
             else
             {
@@ -46,7 +45,7 @@ namespace FundooNotes.Controllers
             if (result)
             {
                 string getToken = manager.GenerateToken(model.Email);
-                return this.Ok(new { success = true, Message = "Login successfully", Data = result, getToken });
+                return this.Ok(new { success = true, Message = "Login successfully", getToken });
             }
             else
             {
@@ -55,13 +54,28 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet]
-        [Route("api/sendEmail")]
-        public IActionResult ResetPasswords(string emailAddress)
+        [Route("api/forgot")]
+        public IActionResult ForgotPasswords(string emailAddress)
         {
-            var result = this.manager.SendEmailManager(emailAddress);
+            var result = this.manager.ForgotPass(emailAddress);
             if (result)
             {
-                return this.Ok(new { success = true, Message = "Password Send successfully", Data = result });
+                return this.Ok(new { success = true, Message = "Reset link Send to your Registered E-mail" });
+            }
+            else
+            {
+                return this.BadRequest();
+            }
+        }
+
+        [HttpPost]
+        [Route("api/reset")]
+        public IActionResult ResetPasswords([FromBody] LoginModel model)
+        {
+            bool result = this.manager.ResetPasswordManager(model);
+            if (result)
+            {
+                return this.Ok(new { success = true, Message = "Password Reset successfully" });
             }
             else
             {

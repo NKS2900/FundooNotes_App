@@ -12,14 +12,45 @@ namespace FundooManager
 
     public interface IUserManager
     {
+        /// <summary>
+        /// adding new User
+        /// </summary>
+        /// <param name="model">passing model</param>
+        /// <returns>return True or False</returns>
         public bool RegisterManager(FundooModels model);
 
+        /// <summary>
+        /// Login validation
+        /// </summary>
+        /// <param name="model">passing login model</param>
+        /// <returns>return True or False</returns>
         public bool LoginManager(LoginModel model);
 
-        public string GenerateToken(string UserEmail);
+        /// <summary>
+        /// Generating JWT token
+        /// </summary>
+        /// <param name="userEmail">user Email</param>
+        /// <returns>returns JWT token</returns>
+        public string GenerateToken(string userEmail);
 
-        public bool SendEmailManager(string mail);
+        /// <summary>
+        /// Forgot password to send ResetPassword link
+        /// </summary>
+        /// <param name="mail">user email</param>
+        /// <returns>return True or False</returns>
+        public bool ForgotPass(string mail);
 
+        /// <summary>
+        /// Reset password using Email
+        /// </summary>
+        /// <param name="model">login model</param>
+        /// <returns></returns>
+        public bool ResetPasswordManager(LoginModel model);
+
+        /// <summary>
+        /// get all user records
+        /// </summary>
+        /// <returns>return all records</returns>
         public IEnumerable<FundooModels> GetAllUsers();
     }
 }
