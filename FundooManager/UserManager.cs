@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------------------------------------
+﻿// ----------------------------------------------------------------------------------------------------
 // <copyright file="UserManager.cs" company="Bridgelabz">
 //   Copyright © 2019 Company="BridgeLabz"
 // </copyright>
@@ -45,7 +45,7 @@ namespace FundooManager
         /// Login authentication
         /// </summary>
         /// <param name="model">passing login model</param>
-        /// <returns></returns>
+        /// <returns>return true or false</returns>
         public bool LoginManager(LoginModel model)
         {
             bool result = this.repository.LoginValidation(model.Email, model.Password);

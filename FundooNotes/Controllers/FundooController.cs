@@ -29,7 +29,7 @@ namespace FundooNotes.Controllers
             bool result = manager.RegisterManager(model);
             if (result)
             {
-                return this.Ok(new { success = true, Message = "User Reginstered successfully", Data = result });
+                return this.Ok(new { success = true, Message = "User Reginstered successfully" });
             }
             else
             {
@@ -45,7 +45,7 @@ namespace FundooNotes.Controllers
             if (result)
             {
                 string getToken = manager.GenerateToken(model.Email);
-                return this.Ok(new { success = true, Message = "Login successfully", Data = result, getToken });
+                return this.Ok(new { success = true, Message = "Login successfully", getToken });
             }
             else
             {
@@ -60,7 +60,7 @@ namespace FundooNotes.Controllers
             var result = this.manager.ForgotPass(emailAddress);
             if (result)
             {
-                return this.Ok(new { success = true, Message = "Password Send successfully", Data = result });
+                return this.Ok(new { success = true, Message = "Reset link Send to your Registered E-mail" });
             }
             else
             {
@@ -75,7 +75,7 @@ namespace FundooNotes.Controllers
             bool result = this.manager.ResetPasswordManager(model);
             if (result)
             {
-                return this.Ok(new { success = true, Message = "Password Reset successfully", Data = result });
+                return this.Ok(new { success = true, Message = "Password Reset successfully" });
             }
             else
             {

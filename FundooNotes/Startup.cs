@@ -17,6 +17,7 @@ namespace FundooNotes
     using Microsoft.Extensions.Hosting;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+    using Pomelo.EntityFrameworkCore.MySql.Storage;
     using System;
 
     public class Startup
@@ -35,8 +36,9 @@ namespace FundooNotes
             //services.AddDbContextPool<FundooContext>
             //(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
-            string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContextPool<FundooContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            //string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
+            //services.AddDbContextPool<FundooContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            services.AddDbContext<FundooContext>(options => options.UseMySql(this.Configuration["Data:ConnectionStrings:DefaultConnection"]));
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<IUserManager, UserManager>();
 

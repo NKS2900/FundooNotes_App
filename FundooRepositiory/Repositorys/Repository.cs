@@ -20,6 +20,7 @@ namespace FundooRepositiory
     using System.Text;
     using Microsoft.EntityFrameworkCore;
 
+
     /// <summary>
     /// Repository for FundooNotes
     /// </summary>
@@ -70,7 +71,7 @@ namespace FundooRepositiory
             var userData = fundooContext.FundooTable.Where(x => x.Email == email && x.Password == password).SingleOrDefault();
             
             if (userData != null)
-            {
+            { 
                 return true;
             }
             else
@@ -120,7 +121,7 @@ namespace FundooRepositiory
                 Formatter = new BinaryMessageFormatter(),
                 Body = forgoturl
             };
-            msmqQueue.Label = "url link";
+            msmqQueue.Label = "E-mails";
             msmqQueue.Send(message);
             var reciever = new MessageQueue(@".\Private$\MyQueue");
             var recieving = reciever.Receive();
