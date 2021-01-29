@@ -82,5 +82,26 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool UpdateNotes(NoteModel model)
+        {
+            try
+            {
+                if (model.NoteId != 0)
+                {
+                    fundooContext.Entry(model).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

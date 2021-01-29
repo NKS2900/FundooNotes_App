@@ -78,6 +78,26 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
-        
+
+        [HttpPut]
+        public IActionResult UpdateNotes(NoteModel model)
+        {
+            try
+            {
+                var result = manager.UpdateNotes(model);
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<NoteModel>() { Status = true, Masseage = "Note Updated Successfully.", Data = model });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }	
     }
 }
