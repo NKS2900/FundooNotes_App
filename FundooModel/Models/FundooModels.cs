@@ -20,7 +20,7 @@ namespace FundooModel.Models
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// set and get FirstName

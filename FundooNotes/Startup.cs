@@ -33,11 +33,6 @@ namespace FundooNotes
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            //services.AddDbContextPool<FundooContext>
-            //(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
-
-            //string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            //services.AddDbContextPool<FundooContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
             services.AddDbContext<FundooContext>(options => options.UseMySql(this.Configuration["Data:ConnectionStrings:DefaultConnection"]));
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<IUserManager, UserManager>();

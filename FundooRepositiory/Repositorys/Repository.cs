@@ -42,8 +42,6 @@ namespace FundooRepositiory
         }
 
         /// <summary>
-<<<<<<< HEAD
-=======
         /// Password Encryption
         /// </summary>
         /// <param name="password">user password</param>
@@ -63,7 +61,6 @@ namespace FundooRepositiory
             }
         }
         /// <summary>
->>>>>>> UC1_FundooNotes
         /// adding user in database 
         /// </summary>
         /// <param name="model">passing model</param>
@@ -175,16 +172,10 @@ namespace FundooRepositiory
         {
             var dbEntry = fundooContext.FundooTable.FirstOrDefault(acc => acc.Email == login.Email);
             string newPass = login.Password;
-<<<<<<< HEAD
-            if (dbEntry != null)
-            {
-                dbEntry.Password = newPass;
-=======
             string encodedPass = PasswordEncryption(newPass);
             if (dbEntry != null)
             {
                 dbEntry.Password = encodedPass;
->>>>>>> UC1_FundooNotes
                 fundooContext.Entry(dbEntry).State = EntityState.Modified;
                 fundooContext.SaveChanges();
                 return true;

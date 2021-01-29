@@ -5,14 +5,13 @@
 // <creator name="Nijam Sayyad"/>
 // -----------------------------------------------------------------------------------------------------
 
-
 namespace FundooModel.Models
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    class NoteModel
+    public class NoteModel
     {
         [Key]
         public int NoteId { get; set; }

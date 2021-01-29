@@ -8,7 +8,7 @@
 namespace FundooRepositiory
 {
     using FundooModel.Models;
-    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;  
 
     /// <summary>
     /// Fundoo Context to Performing operation on DataBase
@@ -27,5 +27,16 @@ namespace FundooRepositiory
         /// Dbset for performing querys on table.
         /// </summary>
         public DbSet<FundooModels> FundooTable { get; set; }
+
+        /// <summary>
+        /// Performign query on NoteTable
+        /// </summary>
+        public DbSet<NoteModel> NoteTable { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
     }
 }
