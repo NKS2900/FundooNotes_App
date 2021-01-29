@@ -8,7 +8,7 @@
 namespace FundooRepositiory
 {
     using System;
-    using Experimental.System.Messaging;
+    using MSMQ_Email;
     using FundooModel.Models;
     using Microsoft.IdentityModel.Tokens;
     using System.Collections.Generic;
@@ -130,34 +130,16 @@ namespace FundooRepositiory
         /// <param name="emailAddress">user Email</param>
         /// <returns>return True or False</returns>
         public bool ForgotPassword(string emailAddress)
-        {
-            var forgoturl = "Reset password link for FundooNotes App: https://localhost:44379/swagger/index.html";
-            MessageQueue msmqQueue = new MessageQueue();
-            if (MessageQueue.Exists(@".\Private$\MyQueue"))
-            {
-                msmqQueue = new MessageQueue(@".\Private$\MyQueue");
-            }
-            else
-            {
-                msmqQueue = MessageQueue.Create(@".\Private$\MyQueue");
-            }
-            Message message = new Message
-            {
-                Formatter = new BinaryMessageFormatter(),
-                Body = forgoturl
-            };
-            msmqQueue.Label = "E-mails";
-            msmqQueue.Send(message);
-            var reciever = new MessageQueue(@".\Private$\MyQueue");
-            var recieving = reciever.Receive();
-            recieving.Formatter = new BinaryMessageFormatter();
-            string linkToSend = recieving.Body.ToString();
-
+        {     
             string body;
             string subject = "Fundoo Notes";
             var dbEntry = fundooContext.FundooTable.FirstOrDefault(e => e.Email == emailAddress);
             if (dbEntry != null)
             {
+                Sender send = new Sender();
+                send.MailSender();
+                Reciver recive = new Reciver();
+                var linkToSend = recive.MailReciver();
                 body = linkToSend;
             }
             else
