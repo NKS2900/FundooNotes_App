@@ -20,7 +20,7 @@ namespace FundooRepositiory
         /// </summary>
         /// <param name="model">passing model</param>
         /// <returns>it returns True or False</returns>
-        public bool RegisterUser(FundooModels model);
+        public bool RegisterUser(UserModel model);
 
         /// <summary>
         /// Password Encryption method
@@ -62,6 +62,6 @@ namespace FundooRepositiory
         /// Get all user records
         /// </summary>
         /// <returns>it returns all records</returns>
-        public IEnumerable<FundooModels> GetAllRecords();
+        public IEnumerable<UserModel> GetAllRecords();
     }
 }

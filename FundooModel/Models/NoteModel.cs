@@ -15,12 +15,7 @@ namespace FundooModel.Models
     {
         [Key]
         public int NoteId { get; set; }
-
-        [ForeignKey("FundooModels")]
-        public int Id { get; set; }
-
-        public FundooModels FundooModels { get; set; }
-
+     
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -40,5 +35,9 @@ namespace FundooModel.Models
         public bool Archive { get; set; }
 
         public string Label { get; set; }
+
+        [ForeignKey("FundooModels")]
+        public int UserId { get; set; }
+
     }
 }

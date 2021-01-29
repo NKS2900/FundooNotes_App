@@ -29,7 +29,6 @@ namespace FundooRepositiory.Migrations
                 {
                     NoteId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Id = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Pin = table.Column<bool>(nullable: false),
@@ -38,32 +37,22 @@ namespace FundooRepositiory.Migrations
                     Colour = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
                     Archive = table.Column<bool>(nullable: false),
-                    Label = table.Column<string>(nullable: true)
+                    Label = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NoteTable", x => x.NoteId);
-                    table.ForeignKey(
-                        name: "FK_NoteTable_FundooTable_Id",
-                        column: x => x.Id,
-                        principalTable: "FundooTable",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NoteTable_Id",
-                table: "NoteTable",
-                column: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "NoteTable");
+                name: "FundooTable");
 
             migrationBuilder.DropTable(
-                name: "FundooTable");
+                name: "NoteTable");
         }
     }
 }

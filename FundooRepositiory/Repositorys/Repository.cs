@@ -20,7 +20,6 @@ namespace FundooRepositiory
     using System.Text;
     using Microsoft.EntityFrameworkCore;
 
-
     /// <summary>
     /// Repository for FundooNotes
     /// </summary>
@@ -65,7 +64,7 @@ namespace FundooRepositiory
         /// </summary>
         /// <param name="model">passing model</param>
         /// <returns>return True or False</returns>
-        public bool RegisterUser(FundooModels model)
+        public bool RegisterUser(UserModel model)
         {
             string encodedPass = PasswordEncryption(model.Password);
             model.Password = encodedPass;
@@ -190,7 +189,7 @@ namespace FundooRepositiory
         /// Geting all user records
         /// </summary>
         /// <returns>returns all records</returns>
-        public IEnumerable<FundooModels> GetAllRecords()
+        public IEnumerable<UserModel> GetAllRecords()
         {
             var users = fundooContext.FundooTable.ToList();
             return users;

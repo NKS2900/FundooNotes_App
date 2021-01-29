@@ -35,7 +35,7 @@ namespace FundooManager
         /// </summary>
         /// <param name="model">passing model</param>
         /// <returns></returns>
-        public bool RegisterManager(FundooModels model)
+        public bool RegisterManager(UserModel model)
         {
             bool result = this.repository.RegisterUser(model);
             return result;
@@ -89,7 +89,7 @@ namespace FundooManager
         /// Get all user data
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<FundooModels> GetAllUsers()
+        public IEnumerable<UserModel> GetAllUsers()
         {
             var getAll = this.repository.GetAllRecords();
             return getAll;

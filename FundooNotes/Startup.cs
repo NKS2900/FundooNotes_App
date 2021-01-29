@@ -9,6 +9,8 @@ namespace FundooNotes
 {
     using FundooManager;
     using FundooRepositiory;
+    using FundooRepositiory.Interface;
+    using FundooRepositiory.Repositorys;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -35,7 +37,9 @@ namespace FundooNotes
             services.AddMvc();
             services.AddDbContext<FundooContext>(options => options.UseMySql(this.Configuration["Data:ConnectionStrings:DefaultConnection"]));
             services.AddTransient<IRepository, Repository>();
+            services.AddTransient<INoteRepository, NoteRepository>();
             services.AddTransient<IUserManager, UserManager>();
+            services.AddTransient<INoteManager, NoteManager>();
 
             services.AddAuthentication(options =>
             {

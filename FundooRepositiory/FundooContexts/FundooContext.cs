@@ -26,7 +26,7 @@ namespace FundooRepositiory
         /// <summary>
         /// Dbset for performing querys on table.
         /// </summary>
-        public DbSet<FundooModels> FundooTable { get; set; }
+        public DbSet<UserModel> FundooTable { get; set; }
 
         /// <summary>
         /// Performign query on NoteTable

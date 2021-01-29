@@ -12,8 +12,9 @@ namespace FundooNotes.Controllers
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
- 
+
     [ApiController]
+    [Route("api/[controller]")]
     public class FundooController : Controller
     { 
         private readonly IUserManager manager;
@@ -23,78 +24,104 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
-        [Route("api/register")]
-        public IActionResult AddEmployee([FromBody] FundooModels model)
+        public IActionResult RegisterUsers([FromBody] UserModel model)
         {
-            bool result = manager.RegisterManager(model);
-            if (result)
+            try
             {
-                return this.Ok(new { success = true, Message = "User Reginstered successfully" });
+                bool result = manager.RegisterManager(model);
+                if (result)
+                {
+                    return this.Ok(new { success = true, Message = "User Reginstered successfully" });
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest();
+                return this.NotFound(new { seccess = false, Massage = ex.Message });
             }
         }
 
         [HttpPost]
-        [Route("api/login")]
+        [Route("login")]
         public IActionResult LoginEmployee([FromBody] LoginModel model)
         {
-            bool result = this.manager.LoginManager(model);
-            if (result)
+            try
             {
-                string getToken = manager.GenerateToken(model.Email);
-                return this.Ok(new { success = true, Message = "Login successfully", getToken });
+                bool result = this.manager.LoginManager(model);
+                if (result)
+                {
+                    string getToken = manager.GenerateToken(model.Email);
+                    return this.Ok(new { success = true, Message = "Login successfully" });
+                }
+                else
+                {
+                    return this.BadRequest();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return this.BadRequest();
+                return this.NotFound(new { seccess=false, Massage=ex.Message});
             }
-        }
-
-        [HttpGet]
-        [Route("api/forgot")]
-        public IActionResult ForgotPasswords(string emailAddress)
-        {
-            var result = this.manager.ForgotPass(emailAddress);
-            if (result)
-            {
-                return this.Ok(new { success = true, Message = "Reset link Send to your Registered E-mail" });
-            }
-            else
-            {
-                return this.BadRequest();
-            }
+            
         }
 
         [HttpPost]
-        [Route("api/reset")]
+        [Route("forgot")]
+        public IActionResult ForgotPasswords(string emailAddress)
+        {
+            try
+            {
+                var result = this.manager.ForgotPass(emailAddress);
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Masseage = "Reset link Send to your Registered E-mail", Data = emailAddress });
+                }
+                else
+                {
+                    return this.BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { seccess = false, Massage = ex.Message });
+            }
+        }
+
+        [HttpPut]
         public IActionResult ResetPasswords([FromBody] LoginModel model)
         {
-            bool result = this.manager.ResetPasswordManager(model);
-            if (result)
+            try
             {
-                return this.Ok(new { success = true, Message = "Password Reset successfully" });
+                bool result = this.manager.ResetPasswordManager(model);
+                if (result)
+                {
+                    return this.Ok(new { success = true, Message = "Password Reset successfully" });
+                }
+                else
+                {
+                    return this.BadRequest();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return this.BadRequest();
+                return this.NotFound(new { seccess = false, Massage = ex.Message });
             }
         }
 
         [HttpGet]
-        [Route("api/show")]
         public IActionResult ShowAllUsers()
         {
             try
             {
-                IEnumerable<FundooModels> list = this.manager.GetAllUsers();
+                IEnumerable<UserModel> list = this.manager.GetAllUsers();
                 return this.Ok(list);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return this.BadRequest(e.Message);
+                return this.BadRequest(ex.Message);
             }
         }
     }

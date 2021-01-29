@@ -1,9 +1,9 @@
-﻿// -----------------------------------------------------------------------------------------------------
+﻿// ---------------------------------------------------------------------------------------------
 // <copyright file="FundooModels.cs" company="Bridgelabz">
 //   Copyright © 2019 Company="BridgeLabz"
 // </copyright>
 // <creator name="Nijam Sayyad"/>
-// -----------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------
 
 namespace FundooModel.Models
 {
@@ -13,7 +13,7 @@ namespace FundooModel.Models
     /// <summary>
     /// Fundoo model to set and get the data.
     /// </summary>
-    public class FundooModels
+    public class UserModel
     {
         /// <summary>
         /// set and get id
@@ -38,6 +38,7 @@ namespace FundooModel.Models
         /// set and get Email
         /// </summary>
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         /// <summary>

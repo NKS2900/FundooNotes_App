@@ -17,7 +17,7 @@ namespace FundooManager
         /// </summary>
         /// <param name="model">passing model</param>
         /// <returns>return True or False</returns>
-        public bool RegisterManager(FundooModels model);
+        public bool RegisterManager(UserModel model);
 
         /// <summary>
         /// Login validation
@@ -51,6 +51,6 @@ namespace FundooManager
         /// get all user records
         /// </summary>
         /// <returns>return all records</returns>
-        public IEnumerable<FundooModels> GetAllUsers();
+        public IEnumerable<UserModel> GetAllUsers();
     }
 }
