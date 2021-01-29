@@ -60,5 +60,27 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool RemoveNote(int noteId)
+        {
+            try
+            {
+                var userData = fundooContext.NoteTable.Where(x => x.NoteId == noteId).SingleOrDefault();
+                if (userData != null)
+                {
+                    fundooContext.NoteTable.Remove(userData);
+                    fundooContext.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

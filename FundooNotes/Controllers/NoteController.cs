@@ -57,7 +57,27 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
-
+	
+	[HttpDelete]
+        public IActionResult DeleteNotes(int noteId)
+        {
+            try
+            {
+                var result = manager.RemoveNotes(noteId);
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Deleted Successfully.", Data = noteId });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
         
     }
 }
