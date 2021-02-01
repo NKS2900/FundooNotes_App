@@ -26,14 +26,14 @@ namespace FundooRepositiory
         /// <summary>
         /// Dbset for performing querys on table.
         /// </summary>
-        public DbSet<UserModel> FundooTable { get; set; }
+        public DbSet<UserModel> UserTable { get; set; }
 
         /// <summary>
         /// Performign query on NoteTable
         /// </summary>
         public DbSet<NoteModel> NoteTable { get; set; }
 
-	public DbSet<LabelModel> LabelTable { get; set; }
+        public DbSet<LabelModel> LabelTable { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

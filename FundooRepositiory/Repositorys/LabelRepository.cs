@@ -1,11 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FundooModel.Models;
-using FundooRepositiory.Interface;
+﻿// -----------------------------------------------------------------------------------------------------
+// <copyright file="LabelRepository.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Nijam Sayyad"/>
+// -----------------------------------------------------------------------------------------------------
 
 namespace FundooRepositiory.Repositorys
 {
+    using FundooModel.Models;
+    using FundooRepositiory.Interface;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class LabelRepository : ILabelRepository
     {
         private readonly FundooContext fundooContext;
@@ -45,8 +53,8 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
-	
-	public bool UpdateLable(LabelModel lable)
+
+        public bool UpdateLable(LabelModel lable)
         {
             try
             {
@@ -57,6 +65,28 @@ namespace FundooRepositiory.Repositorys
                     return true;
                 }
                 return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool DeleteLable(int id)
+        {
+            try
+            {
+                var userData = fundooContext.LabelTable.Where(x => x.LabelId == id).SingleOrDefault();
+                if (userData != null)
+                {
+                    fundooContext.LabelTable.Remove(userData);
+                    fundooContext.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

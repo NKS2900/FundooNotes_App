@@ -15,6 +15,5 @@ namespace FundooModel.Models
         [ForeignKey("NoteModel")]
         public int NoteId { get; set; }
 
-        public NoteModel NoteModel;
     }
 }

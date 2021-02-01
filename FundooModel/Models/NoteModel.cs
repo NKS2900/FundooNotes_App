@@ -36,8 +36,7 @@ namespace FundooModel.Models
 
         public string Label { get; set; }
 
-        [ForeignKey("FundooModels")]
+        [ForeignKey("UserModel")]
         public int UserId { get; set; }
-
     }
 }

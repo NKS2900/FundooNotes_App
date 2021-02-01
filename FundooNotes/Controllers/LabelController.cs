@@ -58,7 +58,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-	[HttpPut]
+        [HttpPut]
         public IActionResult UpdateLabel(LabelModel label)
         {
             try

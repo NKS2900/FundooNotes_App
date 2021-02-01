@@ -1,8 +1,15 @@
-﻿
+﻿// -----------------------------------------------------------------------------------------------------
+// <copyright file="LabelManager.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Nijam Sayyad"/>
+// -----------------------------------------------------------------------------------------------------
+
 namespace FundooManager
 {
     using FundooModel.Models;
     using FundooRepositiory.Interface;
+    using System.Collections.Generic;
 
     public class LabelManager : ILabelManager
     {
@@ -23,13 +30,13 @@ namespace FundooManager
             return result;
         }
 
-	public IEnumerable<LabelModel> RetriveLabeles()
+        public IEnumerable<LabelModel> RetriveLabeles()
         {
             var result = repository.RetriveLabeles();
             return result;
         }
 
-	public bool UpdateLable(LabelModel lable)
+        public bool UpdateLable(LabelModel lable)
         {
             var result = repository.UpdateLable(lable);
             return result;
