@@ -78,5 +78,26 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+	[HttpDelete]
+        public IActionResult DeletLabel(int id)
+        {
+            try
+            {
+                bool result = manager.DeleteLable(id);
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Label Deleted Successfully", Data = id });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, Message = "Somthing went wrong..." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
