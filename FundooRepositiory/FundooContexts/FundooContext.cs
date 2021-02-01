@@ -33,6 +33,8 @@ namespace FundooRepositiory
         /// </summary>
         public DbSet<NoteModel> NoteTable { get; set; }
 
+	public DbSet<LabelModel> LabelTable { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

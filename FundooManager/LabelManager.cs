@@ -22,5 +22,11 @@ namespace FundooManager
             var result = repository.AddLabel(model);
             return result;
         }
+
+	public IEnumerable<LabelModel> RetriveLabeles()
+        {
+            var result = repository.RetriveLabeles();
+            return result;
+        }
     }
 }
