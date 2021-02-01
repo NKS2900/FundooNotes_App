@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundooRepositiory.Migrations
 {
     [DbContext(typeof(FundooContext))]
-    [Migration("20210129092754_Fundoo")]
+    [Migration("20210201183833_Fundoo")]
     partial class Fundoo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,6 +17,23 @@ namespace FundooRepositiory.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("FundooModel.Models.LabelModel", b =>
+                {
+                    b.Property<int>("LabelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("LabelName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LabelId");
+
+                    b.ToTable("LabelTable");
+                });
 
             modelBuilder.Entity("FundooModel.Models.NoteModel", b =>
                 {
@@ -83,7 +100,7 @@ namespace FundooRepositiory.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("FundooTable");
+                    b.ToTable("UserTable");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,19 +8,17 @@ namespace FundooRepositiory.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "FundooTable",
+                name: "LabelTable",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false)
+                    LabelId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false)
+                    LabelName = table.Column<string>(nullable: true),
+                    NoteId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FundooTable", x => x.UserId);
+                    table.PrimaryKey("PK_LabelTable", x => x.LabelId);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,15 +42,34 @@ namespace FundooRepositiory.Migrations
                 {
                     table.PrimaryKey("PK_NoteTable", x => x.NoteId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "UserTable",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTable", x => x.UserId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FundooTable");
+                name: "LabelTable");
 
             migrationBuilder.DropTable(
                 name: "NoteTable");
+
+            migrationBuilder.DropTable(
+                name: "UserTable");
         }
     }
 }

@@ -16,6 +16,23 @@ namespace FundooRepositiory.Migrations
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("FundooModel.Models.LabelModel", b =>
+                {
+                    b.Property<int>("LabelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("LabelName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LabelId");
+
+                    b.ToTable("LabelTable");
+                });
+
             modelBuilder.Entity("FundooModel.Models.NoteModel", b =>
                 {
                     b.Property<int>("NoteId")
@@ -81,7 +98,7 @@ namespace FundooRepositiory.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("FundooTable");
+                    b.ToTable("UserTable");
                 });
 #pragma warning restore 612, 618
         }
