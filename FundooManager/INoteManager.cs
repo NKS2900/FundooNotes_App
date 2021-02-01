@@ -9,10 +9,12 @@ namespace FundooManager
     {
         public bool AddNotes(NoteModel model);
 
-        public IEnumerable<NoteModel> RetrieveNotes();
+        public NoteModel RetrieveNotes(int noteId);
 
         public bool RemoveNotes(int noteId);
 
         public bool UpdateNotes(NoteModel model);
+
+        public string CheckPin(int noteId);
     }
 }

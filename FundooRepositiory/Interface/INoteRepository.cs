@@ -9,10 +9,12 @@ namespace FundooRepositiory.Interface
     {
         public bool AddNote(NoteModel model);
 
-        public IEnumerable<NoteModel> RetrieveNotes();
+        public NoteModel RetrieveNotesById(int id);
 
         public bool RemoveNote(int Id);
 
         public bool UpdateNotes(NoteModel model);
+
+        public string CheckPin(int uid);
     }
 }

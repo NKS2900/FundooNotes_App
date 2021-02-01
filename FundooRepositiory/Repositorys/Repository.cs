@@ -143,7 +143,7 @@ namespace FundooRepositiory
                 return false;
             }
 
-            MailMessage mailMessage = new MailMessage("nijamsayyad95@gmail.com", emailAddress)
+            MailMessage mailMessage = new MailMessage("nijamsayyad@gmail.com", emailAddress)
             {
                 Subject = subject,
                 Body = body,
@@ -154,7 +154,7 @@ namespace FundooRepositiory
                 Host = "smtp.gmail.com",
                 EnableSsl = true
             };
-            NetworkCredential NetworkCred = new NetworkCredential("nijamsayyad95@gmail.com", "Nijam$2900@");
+            NetworkCredential NetworkCred = new NetworkCredential("nijamsayyad@gmail.com", "Pass@123");
             smtp.UseDefaultCredentials = true;
             smtp.Credentials = NetworkCred;
             smtp.Port = 587;

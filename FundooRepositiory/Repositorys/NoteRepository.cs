@@ -41,19 +41,13 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
-        public IEnumerable<NoteModel> RetrieveNotes()
+
+        public NoteModel RetrieveNotesById(int id)
         {
             try
-            { 
-                IEnumerable<NoteModel> notes = this.fundooContext.NoteTable;
-                if (notes != null)
-                {
-                    return notes;
-                }
-                else
-                {
-                    return notes;
-                }                
+            {
+                NoteModel notes = this.fundooContext.NoteTable.Where(x => x.NoteId == id).SingleOrDefault();
+                return notes;
             }
             catch (Exception ex)
             {
@@ -103,5 +97,35 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+        public string CheckPin(int id)
+        {
+            try
+            {
+                var note = fundooContext.NoteTable.Where(x => x.NoteId == id).SingleOrDefault();
+                if (note.Pin == false)
+                {
+                    note.Pin = true;
+                    fundooContext.Entry(note).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    string pin= "PIN";
+                    return pin;
+                }
+                else
+                {
+                    note.Pin = false;
+                    fundooContext.Entry(note).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    string unpin = "UNPIN";
+                    return unpin;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
+
+

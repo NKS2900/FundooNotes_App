@@ -58,7 +58,7 @@ namespace FundooNotes.Controllers
                 }
                 else
                 {
-                    return this.BadRequest();
+                    return BadRequest(new { success = false, Message = "Somthing went wrong..." });
                 }
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace FundooNotes.Controllers
                 }
                 else
                 {
-                    return this.BadRequest();
+                    return BadRequest(new { success = false, Message = "Somthing went wrong..." });
                 }
             }
             catch (Exception ex)
@@ -102,7 +102,7 @@ namespace FundooNotes.Controllers
                 }
                 else
                 {
-                    return this.BadRequest();
+                    return BadRequest(new { success = false, Message = "Somthing went wrong..." });
                 }
             }
             catch (Exception ex)
@@ -121,7 +121,7 @@ namespace FundooNotes.Controllers
             }
             catch (Exception ex)
             {
-                return this.BadRequest(ex.Message);
+                return BadRequest(new { success = false, Message = "Somthing went wrong..." });
             }
         }
     }

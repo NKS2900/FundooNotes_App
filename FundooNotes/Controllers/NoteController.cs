@@ -11,7 +11,6 @@ namespace FundooNotes.Controllers
     using FundooModel.Models;
     using Microsoft.AspNetCore.Mvc;
     using System;
-    using System.Collections.Generic;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -26,26 +25,33 @@ namespace FundooNotes.Controllers
         [HttpPost]
         public IActionResult AddNewNote([FromBody] NoteModel model)
         {
-            bool result = manager.AddNotes(model);
-            if (result)
+            try
             {
-                return this.Ok(new { success = true, Message = "Note Created successfully" });
+                bool result = manager.AddNotes(model);
+                if (result)
+                {
+                    return this.Ok(new { success = true, Message = "Note Created successfully" });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, Message = "Somthing went wrong..." });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest(new { success=false, Message="Somthing went wrong..."});
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
 
         [HttpGet]
-        public IActionResult GetNotes()
+        public IActionResult GetNotesById(int noteId)
         {
             try
             {
-                var note = manager.RetrieveNotes();
+                var note = manager.RetrieveNotes(noteId);
                 if (note != null)
                 {
-                    return this.Ok(new ResponseModel<IEnumerable<NoteModel>>() { Status = true, Masseage = "Retrieve Notes Successfully", Data = note });
+                    return this.Ok(new ResponseModel<NoteModel>() { Status = true, Masseage = "Retrieve Notes Successfully", Data = note });
                 }
                 else
                 {
@@ -57,8 +63,8 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
-	
-	[HttpDelete]
+
+        [HttpDelete]
         public IActionResult DeleteNotes(int noteId)
         {
             try
@@ -98,6 +104,6 @@ namespace FundooNotes.Controllers
             {
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
-        }	
+        }
     }
 }
