@@ -68,7 +68,7 @@ namespace FundooRepositiory
         {
             string encodedPass = PasswordEncryption(model.Password);
             model.Password = encodedPass;
-            fundooContext.FundooTable.Add(model);
+            fundooContext.UserTable.Add(model);
             var emp = fundooContext.SaveChanges();
             if (emp > 0)
             {
@@ -89,7 +89,7 @@ namespace FundooRepositiory
         public bool LoginValidation(string email, string password)
         {
             string encodedPass = PasswordEncryption(password);
-            var userData = fundooContext.FundooTable.Where(x => x.Email == email && x.Password == encodedPass).SingleOrDefault();
+            var userData = fundooContext.UserTable.Where(x => x.Email == email && x.Password == encodedPass).SingleOrDefault();
             
             if (userData != null)
             { 
@@ -129,7 +129,7 @@ namespace FundooRepositiory
         {     
             string body;
             string subject = "Fundoo Notes";
-            var dbEntry = fundooContext.FundooTable.FirstOrDefault(e => e.Email == emailAddress);
+            var dbEntry = fundooContext.UserTable.FirstOrDefault(e => e.Email == emailAddress);
             if (dbEntry != null)
             {
                 Sender send = new Sender();
@@ -169,7 +169,7 @@ namespace FundooRepositiory
         /// <returns>return True or False</returns>
         public bool ResetPassword(LoginModel login)
         {
-            var dbEntry = fundooContext.FundooTable.FirstOrDefault(acc => acc.Email == login.Email);
+            var dbEntry = fundooContext.UserTable.FirstOrDefault(acc => acc.Email == login.Email);
             string newPass = login.Password;
             string encodedPass = PasswordEncryption(newPass);
             if (dbEntry != null)
@@ -191,7 +191,7 @@ namespace FundooRepositiory
         /// <returns>returns all records</returns>
         public IEnumerable<UserModel> GetAllRecords()
         {
-            var users = fundooContext.FundooTable.ToList();
+            var users = fundooContext.UserTable.ToList();
             return users;
         }
     }
