@@ -57,5 +57,26 @@ namespace FundooNotes.Controllers
                 return BadRequest(new { success = false, Message = ex.Message });
             }
         }
+
+	[HttpPut]
+        public IActionResult UpdateLabel(LabelModel label)
+        {
+            try
+            {
+                var result = manager.UpdateLable(label);
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<LabelModel>() { Status = true, Masseage = "Label updated Successfully", Data = label });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, Message = "Somthing went wrong..." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
