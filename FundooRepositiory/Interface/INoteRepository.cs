@@ -16,5 +16,7 @@ namespace FundooRepositiory.Interface
         public bool UpdateNotes(NoteModel model);
 
         public string CheckPin(int uid);
+
+	public string CheckArchive(int id);
     }
 }

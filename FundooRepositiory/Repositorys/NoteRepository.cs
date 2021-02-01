@@ -125,6 +125,34 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+	public string CheckArchive(int id)
+        {
+            try
+            {
+                var note = fundooContext.NoteTable.Where(x => x.NoteId == id).SingleOrDefault();
+                if (note.Archive == false)
+                {
+                    note.Archive = true;
+                    fundooContext.Entry(note).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    string acrch = "ARCHIVE";
+                    return acrch;
+                }
+                else
+                {
+                    note.Archive = false;
+                    fundooContext.Entry(note).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    string unacrch = "UNARCHIVE";
+                    return unacrch;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
 
