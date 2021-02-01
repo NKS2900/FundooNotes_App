@@ -131,5 +131,31 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+	[HttpPut]
+        [Route("archive")]
+        public IActionResult CheckArchive(int noteId)
+        {
+            try
+            {
+                var result = manager.CheckArchive(noteId);
+                if (result == "ARCHIVE")
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Added to archive Successfully.", Data = noteId });
+                }
+                if (result == "UNARCHIVE")
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Unarchived is Successfull.", Data = noteId });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
