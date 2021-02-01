@@ -105,5 +105,31 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        [HttpPost]
+        [Route("pin")]
+        public IActionResult CheckPin(int noteId)
+        {
+            try
+            {
+                var result = manager.CheckPin(noteId);
+                if (result=="PIN")
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Pined is Successfully.", Data = noteId });
+                }
+                if (result == "UNPIN")
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note UnpinPined is Successfully.", Data = noteId });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
