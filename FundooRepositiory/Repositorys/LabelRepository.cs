@@ -45,5 +45,23 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+	
+	public bool UpdateLable(LabelModel lable)
+        {
+            try
+            {
+                if (lable.LabelId > 0)
+                {
+                    this.fundooContext.Entry(lable).State = EntityState.Modified;
+                    this.fundooContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
