@@ -41,5 +41,11 @@ namespace FundooManager
             var result = repository.UpdateLable(lable);
             return result;
         }
+
+	public bool DeleteLable(int id)
+        {
+            var result = repository.DeleteLable(id);
+            return result;
+        }
     }
 }
