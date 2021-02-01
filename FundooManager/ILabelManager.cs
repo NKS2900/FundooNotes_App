@@ -7,6 +7,8 @@ namespace FundooManager
     {
         public bool AddLabel(LabelModel model);
 
-	public IEnumerable<LabelModel> RetriveLabeles()
+	public IEnumerable<LabelModel> RetriveLabeles();
+
+	public bool UpdateLable(LabelModel lable);
     }
 }

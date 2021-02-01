@@ -28,5 +28,11 @@ namespace FundooManager
             var result = repository.RetriveLabeles();
             return result;
         }
+
+	public bool UpdateLable(LabelModel lable)
+        {
+            var result = repository.UpdateLable(lable);
+            return result;
+        }
     }
 }
