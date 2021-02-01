@@ -126,7 +126,7 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
-	public string CheckArchive(int id)
+        public string CheckArchive(int id)
         {
             try
             {

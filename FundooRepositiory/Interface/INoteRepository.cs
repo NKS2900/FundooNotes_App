@@ -17,6 +17,7 @@ namespace FundooRepositiory.Interface
 
         public string CheckPin(int uid);
 
-	public string CheckArchive(int id);
+        public string CheckArchive(int uid);
+
     }
 }

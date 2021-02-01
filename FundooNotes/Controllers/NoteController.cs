@@ -106,7 +106,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("pin")]
         public IActionResult CheckPin(int noteId)
         {
@@ -132,7 +132,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-	[HttpPut]
+        [HttpPut]
         [Route("archive")]
         public IActionResult CheckArchive(int noteId)
         {

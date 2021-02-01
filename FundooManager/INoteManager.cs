@@ -17,6 +17,6 @@ namespace FundooManager
 
         public string CheckPin(int noteId);
 
-	public string CheckArchive(int noteId)
+        public string CheckArchive(int noteId);
     }
 }
