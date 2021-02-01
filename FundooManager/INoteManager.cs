@@ -16,5 +16,7 @@ namespace FundooManager
         public bool UpdateNotes(NoteModel model);
 
         public string CheckPin(int noteId);
+
+	public string CheckArchive(int noteId)
     }
 }

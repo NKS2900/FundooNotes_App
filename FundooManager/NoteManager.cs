@@ -48,5 +48,11 @@ namespace FundooManager
             var result = repository.CheckPin(noteId);
             return result;
         }
+
+	public string CheckArchive(int noteId)
+        {
+            var result = repository.CheckArchive(noteId);
+            return result;
+        }
     }
 }
