@@ -32,5 +32,18 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+        public IEnumerable<LabelModel> RetriveLabeles()
+        {
+            try
+            {
+                IEnumerable<LabelModel> result= fundooContext.LabelTable.ToList(); 
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
