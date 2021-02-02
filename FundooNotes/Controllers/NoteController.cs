@@ -11,6 +11,7 @@ namespace FundooNotes.Controllers
     using FundooModel.Models;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -44,6 +45,21 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet]
+        public IActionResult RetriveAllNotes()
+        {
+            try
+            {
+                IEnumerable<NoteModel> notes = manager.RetriveAllNotes();
+                return this.Ok(new ResponseModel<IEnumerable<NoteModel>>() { Status = true, Masseage = "All Notes Retrived Successfully.", Data = notes });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { success = false, Message = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("GetById")]
         public IActionResult GetNotesById(int noteId)
         {
             try

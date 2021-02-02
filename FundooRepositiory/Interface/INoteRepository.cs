@@ -11,6 +11,8 @@ namespace FundooRepositiory.Interface
 
         public NoteModel RetrieveNotesById(int id);
 
+        public IEnumerable<NoteModel> RetriveAllNotes();
+
         public bool RemoveNote(int Id);
 
         public bool UpdateNotes(NoteModel model);

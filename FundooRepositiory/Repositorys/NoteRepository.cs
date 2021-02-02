@@ -42,6 +42,19 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        public IEnumerable<NoteModel> RetriveAllNotes()
+        {
+            try
+            {
+                IEnumerable<NoteModel> result = fundooContext.NoteTable.ToList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public NoteModel RetrieveNotesById(int id)
         {
             try

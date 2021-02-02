@@ -25,6 +25,12 @@ namespace FundooManager
             return result;
         }
 
+        public IEnumerable<NoteModel> RetriveAllNotes()
+        {
+            var result = repository.RetriveAllNotes();
+            return result;
+        }
+
         public NoteModel RetrieveNotes(int noteId)
         {
             var result = repository.RetrieveNotesById(noteId);
