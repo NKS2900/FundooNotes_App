@@ -36,13 +36,19 @@ namespace FundooManager
             return result;
         }
 
+        public LabelModel RetrieveLabelById(int id)
+        {
+            var result = repository.RetrieveLabelById(id);
+            return result;
+        }
+
         public bool UpdateLable(LabelModel lable)
         {
             var result = repository.UpdateLable(lable);
             return result;
         }
 
-	public bool DeleteLable(int id)
+        public bool DeleteLable(int id)
         {
             var result = repository.DeleteLable(id);
             return result;

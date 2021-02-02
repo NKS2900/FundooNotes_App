@@ -54,6 +54,19 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        public LabelModel RetrieveLabelById(int id)
+        {
+            try
+            {
+                LabelModel notes = this.fundooContext.LabelTable.Where(x => x.LabelId == id).SingleOrDefault();
+                return notes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public bool UpdateLable(LabelModel lable)
         {
             try

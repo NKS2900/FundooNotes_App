@@ -50,7 +50,22 @@ namespace FundooNotes.Controllers
             try
             {
                 IEnumerable<LabelModel> labels = manager.RetriveLabeles();
-                return this.Ok(labels);
+                return this.Ok(new ResponseModel<IEnumerable<LabelModel>>() { Status = true, Masseage = "All Notes Retrived is Successfully.", Data = labels });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { success = false, Message = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("getById")]
+        public IActionResult GetLabelById(int id)
+        {
+            try
+            {
+                LabelModel labels = manager.RetrieveLabelById(id);
+                return this.Ok(new ResponseModel<LabelModel>() { Status = true, Masseage = "Label Retrived Successfully.", Data = labels });
             }
             catch (Exception ex)
             {
@@ -79,7 +94,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-	[HttpDelete]
+        [HttpDelete]
         public IActionResult DeletLabel(int id)
         {
             try

@@ -16,8 +16,10 @@ namespace FundooManager
 
         public IEnumerable<LabelModel> RetriveLabeles();
 
+        public LabelModel RetrieveLabelById(int id);
+
         public bool UpdateLable(LabelModel lable);
-	
-	public bool DeleteLable(int id);
+
+        public bool DeleteLable(int id);
     }
 }
