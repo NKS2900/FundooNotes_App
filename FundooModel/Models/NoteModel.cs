@@ -34,7 +34,8 @@ namespace FundooModel.Models
         [DefaultValue(false)]
         public bool Archive { get; set; }
 
-        public string Label { get; set; }
+        [DefaultValue(false)]
+        public bool Trash { get; set; }
 
         [ForeignKey("UserModel")]
         public int UserId { get; set; }

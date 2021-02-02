@@ -28,6 +28,9 @@ namespace FundooRepositiory.Migrations
                     b.Property<int>("NoteId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("LabelId");
 
                     b.ToTable("LabelTable");
@@ -54,9 +57,6 @@ namespace FundooRepositiory.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Label")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.Property<bool>("Pin")
                         .HasColumnType("tinyint(1)");
 
@@ -65,6 +65,9 @@ namespace FundooRepositiory.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("Trash")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");

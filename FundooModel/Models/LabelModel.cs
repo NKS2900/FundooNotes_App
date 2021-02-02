@@ -12,8 +12,10 @@ namespace FundooModel.Models
 
         public string LabelName { get; set; }
 
-        [ForeignKey("NoteModel")]
         public int NoteId { get; set; }
+
+        [ForeignKey("UserModel")]
+        public int UserId { get; set; }
 
     }
 }

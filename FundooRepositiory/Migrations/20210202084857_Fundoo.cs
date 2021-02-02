@@ -14,7 +14,8 @@ namespace FundooRepositiory.Migrations
                     LabelId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     LabelName = table.Column<string>(nullable: true),
-                    NoteId = table.Column<int>(nullable: false)
+                    NoteId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,7 +36,7 @@ namespace FundooRepositiory.Migrations
                     Colour = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
                     Archive = table.Column<bool>(nullable: false),
-                    Label = table.Column<string>(nullable: true),
+                    Trash = table.Column<bool>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
