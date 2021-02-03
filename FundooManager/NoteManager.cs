@@ -21,7 +21,7 @@ namespace FundooManager
 
         public bool AddNotes(NoteModel model)
         {
-            var result = repository.AddNote(model);
+            bool result = repository.AddNote(model);
             return result;
         }
 
@@ -39,19 +39,25 @@ namespace FundooManager
 
         public bool RemoveNotes(int noteId)
         {
-            var result = repository.RemoveNote(noteId);
+            bool result = repository.RemoveNote(noteId);
             return result;
         }
 
         public bool UpdateNotes(NoteModel model)
         {
-            var result = repository.UpdateNotes(model);
+            bool result = repository.UpdateNotes(model);
             return result;
         }
 
         public string CheckPin(int noteId)
         {
             var result = repository.CheckPin(noteId);
+            return result;
+        }
+
+        public string CheckArchive(int noteId)
+        {
+            var result = repository.CheckArchive(noteId);
             return result;
         }
 
@@ -67,9 +73,21 @@ namespace FundooManager
             return result;
         }
 
-        public string CheckArchive(int noteId)
+    public string RestoreTrashed(int noteId)
         {
-            var result = repository.CheckArchive(noteId);
+            var result = repository.RestoreTrash(noteId);
+            return result;
+        }
+
+        public bool DeletNoteForever(int noteId)
+        {
+            bool result = repository.DeletNoteForever(noteId);
+            return result;
+        }
+
+        public bool EmptyTrash()
+        {
+            bool result = repository.EmptyTrash();
             return result;
         }
     }
