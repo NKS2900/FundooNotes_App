@@ -52,6 +52,25 @@ namespace FundooNotes.Controllers
             }
         }
 
-
+        [HttpDelete]
+        public IActionResult DeletLabel(int Coll_id)
+        {
+            try
+            {
+                bool result = manager.DeleteCollaborator(Coll_id);
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Collaborator Deleted Successfully", Data = Coll_id });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, Message = "Somthing went wrong..." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

@@ -29,7 +29,11 @@ namespace FundooManager
             return result;
         }
 
-
+        public bool DeleteCollaborator(int id)
+        {
+            bool result = repository.DeleteCollaborator(id);
+            return result;
+        }
     }
 }
 

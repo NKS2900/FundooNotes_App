@@ -47,6 +47,26 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
-
+        public bool DeleteCollaborator(int id)
+        {
+            try
+            {
+                var userData = fundooContext.CollaboratorTable.Where(x => x.CallId == id).SingleOrDefault();
+                if (userData != null)
+                {
+                    fundooContext.CollaboratorTable.Remove(userData);
+                    fundooContext.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
