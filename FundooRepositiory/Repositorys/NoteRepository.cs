@@ -46,7 +46,7 @@ namespace FundooRepositiory.Repositorys
         {
             try
             {
-                IEnumerable<NoteModel> result = fundooContext.NoteTable.ToList();
+                IEnumerable<NoteModel> result = fundooContext.NoteTable.Where(x => x.Trash == false && x.Archive == false).ToList();
                 return result;
             }
             catch (Exception ex)
