@@ -17,6 +17,10 @@ namespace FundooManager
 
         public bool UpdateNotes(NoteModel model);
 
+        public IEnumerable<NoteModel> RetriveArchiveNotes();
+
+        public IEnumerable<NoteModel> RetriveTrashedNotes();
+
         public string CheckPin(int noteId);
 
         public string CheckArchive(int noteId);

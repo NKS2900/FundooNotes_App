@@ -55,6 +55,18 @@ namespace FundooManager
             return result;
         }
 
+        public IEnumerable<NoteModel> RetriveArchiveNotes()
+        {
+            var result = repository.RetriveArchiveNotes();
+            return result;
+        }
+
+        public IEnumerable<NoteModel> RetriveTrashedNotes()
+        {
+            var result = repository.RetriveTrashedNotes();
+            return result;
+        }
+
         public string CheckArchive(int noteId)
         {
             var result = repository.CheckArchive(noteId);

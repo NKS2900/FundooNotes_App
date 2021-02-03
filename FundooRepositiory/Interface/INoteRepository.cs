@@ -21,5 +21,9 @@ namespace FundooRepositiory.Interface
 
         public string CheckArchive(int uid);
 
+	public IEnumerable<NoteModel> RetriveArchiveNotes();
+
+        public IEnumerable<NoteModel> RetriveTrashedNotes();
+
     }
 }

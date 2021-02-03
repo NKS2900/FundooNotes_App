@@ -167,6 +167,31 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        public IEnumerable<NoteModel> RetriveArchiveNotes()
+        {
+            try
+            {
+                IEnumerable<NoteModel> result = fundooContext.NoteTable.Where(x => x.Archive == true).ToList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public IEnumerable<NoteModel> RetriveTrashedNotes()
+        {
+            try
+            {
+                IEnumerable<NoteModel> result = fundooContext.NoteTable.Where(x => x.Trash == true).ToList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
     }
 }
