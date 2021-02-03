@@ -42,11 +42,12 @@ namespace FundooNotes
             services.AddTransient<IRepository, Repository>();
             services.AddTransient<INoteRepository, NoteRepository>();
             services.AddTransient<ILabelRepository, LabelRepository>();
+            services.AddTransient<ICollaborator, CollaboratorRepository>();
+
             services.AddTransient<IUserManager, UserManager>();
             services.AddTransient<INoteManager, NoteManager>();
             services.AddTransient<ILabelManager, LabelManager>();
-            
-
+            services.AddTransient<ICallboratorManager, CollaboratorManager>();
 
             services.AddAuthentication(options =>
             {
