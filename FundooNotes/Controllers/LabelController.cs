@@ -31,7 +31,7 @@ namespace FundooNotes.Controllers
                 bool result = manager.AddLabel(model);
                 if (result)
                 {
-                    return this.Ok(new ResponseModel<LabelModel>() { Status = true, Masseage = "Retrieve Notes Successfully", Data = model });
+                    return this.Ok(new ResponseModel<LabelModel>() { Status = true, Masseage = "Label Created Successfully", Data = model });
                 }
                 else
                 {

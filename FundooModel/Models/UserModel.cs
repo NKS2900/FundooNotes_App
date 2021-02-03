@@ -38,7 +38,7 @@ namespace FundooModel.Models
         /// set and get Email
         /// </summary>
         [Required]
-        [EmailAddress]
+        [RegularExpression("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", ErrorMessage = "Invalid Email Id!!!")]
         public string Email { get; set; }
 
         /// <summary>

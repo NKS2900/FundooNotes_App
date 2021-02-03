@@ -23,17 +23,13 @@ namespace FundooRepositiory
         {
         }
 
-        /// <summary>
-        /// Dbset for performing querys on table.
-        /// </summary>
         public DbSet<UserModel> UserTable { get; set; }
 
-        /// <summary>
-        /// Performign query on NoteTable
-        /// </summary>
         public DbSet<NoteModel> NoteTable { get; set; }
 
         public DbSet<LabelModel> LabelTable { get; set; }
+
+        public DbSet<CollaboratorModel> CollaboratorTable { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -5,6 +5,8 @@ namespace FundooModel.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using FundooModel.Models;
+
+    [Table("LabelTable")]
     public class LabelModel
     {
         [Key]

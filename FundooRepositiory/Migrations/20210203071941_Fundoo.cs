@@ -8,6 +8,21 @@ namespace FundooRepositiory.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "CollaboratorTable",
+                columns: table => new
+                {
+                    CallId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Sender = table.Column<string>(nullable: false),
+                    Reciver = table.Column<string>(nullable: false),
+                    NoteId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CollaboratorTable", x => x.CallId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LabelTable",
                 columns: table => new
                 {
@@ -30,11 +45,11 @@ namespace FundooRepositiory.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Pin = table.Column<bool>(nullable: false),
                     Reminder = table.Column<string>(nullable: true),
                     Collaborator = table.Column<string>(nullable: true),
                     Colour = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
+                    Pin = table.Column<bool>(nullable: false),
                     Archive = table.Column<bool>(nullable: false),
                     Trash = table.Column<bool>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
@@ -63,6 +78,9 @@ namespace FundooRepositiory.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CollaboratorTable");
+
             migrationBuilder.DropTable(
                 name: "LabelTable");
 

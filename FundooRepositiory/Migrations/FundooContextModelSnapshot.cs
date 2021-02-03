@@ -16,6 +16,28 @@ namespace FundooRepositiory.Migrations
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("FundooModel.Models.CollaboratorModel", b =>
+                {
+                    b.Property<int>("CallId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reciver")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Sender")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("CallId");
+
+                    b.ToTable("CollaboratorTable");
+                });
+
             modelBuilder.Entity("FundooModel.Models.LabelModel", b =>
                 {
                     b.Property<int>("LabelId")

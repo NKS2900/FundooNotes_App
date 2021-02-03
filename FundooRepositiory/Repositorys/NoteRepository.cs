@@ -72,11 +72,14 @@ namespace FundooRepositiory.Repositorys
         {
             try
             {
-                var userData = fundooContext.NoteTable.Where(x => x.NoteId == noteId).SingleOrDefault();
-                if (userData != null)
+                var note = fundooContext.NoteTable.Where(x => x.NoteId == noteId).SingleOrDefault();
+                if (note != null)
                 {
-                    fundooContext.NoteTable.Remove(userData);
-                    fundooContext.SaveChangesAsync();
+                    note.Trash = true;
+                    fundooContext.Entry(note).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    //fundooContext.NoteTable.Remove(userData);
+                    //fundooContext.SaveChangesAsync();
                     return true;
                 }
                 else
@@ -192,6 +195,7 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
         public string RestoreTrash(int noteId)
         {
             try
@@ -258,5 +262,3 @@ namespace FundooRepositiory.Repositorys
         }
     }
 }
-
-

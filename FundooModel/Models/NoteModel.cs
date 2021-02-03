@@ -11,6 +11,7 @@ namespace FundooModel.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("NoteTable")]
     public class NoteModel
     {
         [Key]
@@ -19,9 +20,6 @@ namespace FundooModel.Models
         public string Title { get; set; }
 
         public string Description { get; set; }
-
-        [DefaultValue(false)]
-        public bool Pin { get; set; }
 
         public string Reminder { get; set; }
 
@@ -32,12 +30,16 @@ namespace FundooModel.Models
         public string Image { get; set; }
 
         [DefaultValue(false)]
+        public bool Pin { get; set; }
+
+        [DefaultValue(false)]
         public bool Archive { get; set; }
 
         [DefaultValue(false)]
         public bool Trash { get; set; }
 
-        [ForeignKey("UserModel")]
+        [ForeignKey("UserId")]
         public int UserId { get; set; }
+
     }
 }
