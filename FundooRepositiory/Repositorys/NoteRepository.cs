@@ -212,6 +212,28 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool DeletNoteForever(int noteId)
+        {
+            try
+            {
+                var note = fundooContext.NoteTable.Where(x => x.NoteId == noteId && x.Trash == true).SingleOrDefault();
+                if (note != null)
+                {
+                    fundooContext.NoteTable.Remove(note);
+                    fundooContext.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false; 
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
 
