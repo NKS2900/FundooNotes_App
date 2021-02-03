@@ -234,6 +234,28 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool EmptyTrash()
+        {
+            try
+            {
+                IEnumerable<NoteModel> result = fundooContext.NoteTable.Where(x => x.Trash == true).ToList();
+                if (result != null)
+                {
+                    foreach (var trash in result)
+                    {
+                        fundooContext.NoteTable.Remove(trash);
+                        fundooContext.SaveChangesAsync();
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
 
