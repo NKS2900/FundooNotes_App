@@ -34,5 +34,19 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        public IEnumerable<CollaboratorModel> RetriveCollaborator()
+        {
+            try
+            {
+                IEnumerable<CollaboratorModel> result = fundooContext.CollaboratorTable.ToList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
     }
 }

@@ -23,6 +23,13 @@ namespace FundooManager
             return result;
         }
 
+        public IEnumerable<CollaboratorModel> RetriveCollaborator()
+        {
+            var result = repository.RetriveCollaborator();
+            return result;
+        }
+
+
     }
 }
 

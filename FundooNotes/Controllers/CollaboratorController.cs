@@ -38,6 +38,20 @@ namespace FundooNotes.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult RetriveCollaborator()
+        {
+            try
+            {
+                IEnumerable<CollaboratorModel> collaborator = manager.RetriveCollaborator();
+                return this.Ok(new ResponseModel<IEnumerable<CollaboratorModel>>() { Status = true, Masseage = "All Notes Retrived is Successfully.", Data = collaborator });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { success = false, Message = ex.Message });
+            }
+        }
+
 
     }
 }
