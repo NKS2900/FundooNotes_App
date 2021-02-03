@@ -192,7 +192,26 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
-
+        public string RestoreTrash(int noteId)
+        {
+            try
+            {
+                var note = fundooContext.NoteTable.Where(x => x.NoteId == noteId).SingleOrDefault();
+                if (note.Trash == true)
+                {
+                    note.Trash = false;
+                    fundooContext.Entry(note).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    string trashed = "RESTORE";
+                    return trashed;
+                }
+                return "FAILED";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
 
