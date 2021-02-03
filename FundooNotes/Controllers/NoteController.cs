@@ -173,5 +173,35 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
+
+        [HttpGet]
+        [Route("archive")]
+        public IActionResult RetriveArchiveNotes()
+        {
+            try
+            {
+                IEnumerable<NoteModel> notes = manager.RetriveArchiveNotes();
+                return this.Ok(new ResponseModel<IEnumerable<NoteModel>>() { Status = true, Masseage = "All Notes Retrived Successfully.", Data = notes });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { success = false, Message = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("trash")]
+        public IActionResult RetriveTrashedNotes()
+        {
+            try
+            {
+                IEnumerable<NoteModel> notes = manager.RetriveTrashedNotes();
+                return this.Ok(new ResponseModel<IEnumerable<NoteModel>>() { Status = true, Masseage = "All Notes Retrived Successfully.", Data = notes });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { success = false, Message = ex.Message });
+            }
+        }
     }
 }
