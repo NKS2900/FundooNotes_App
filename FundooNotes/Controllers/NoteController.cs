@@ -31,7 +31,8 @@ namespace FundooNotes.Controllers
                 bool result = manager.AddNotes(model);
                 if (result)
                 {
-                    return this.Ok(new { success = true, Message = "Note Created successfully" });
+                    //return this.Ok(new { success = true, Message = "Note Created successfully" });
+                    return this.Ok(new ResponseModel<NoteModel>() { Status = true, Masseage = "Note Created successfully", Data = model });
                 }
                 else
                 {
@@ -88,7 +89,7 @@ namespace FundooNotes.Controllers
                 var result = manager.RemoveNotes(noteId);
                 if (result)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Deleted Successfully.", Data = noteId });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Trashed Successfully.", Data = noteId });
                 }
                 else
                 {
@@ -201,6 +202,73 @@ namespace FundooNotes.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { success = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        [Route("restore")]
+        public IActionResult RestoreTrash(int noteId)
+        {
+            try
+            {
+                var result = manager.RestoreTrashed(noteId);
+               
+                if (result == "RESTORE")
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Restored Successfully.", Data = noteId });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        [Route("deletNoteForever")]
+        public IActionResult DeleteNoteForever(int noteId)
+        {
+            try
+            {
+                bool result = manager.DeletNoteForever(noteId);
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Deleted Successfully.", Data = noteId });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        [Route("emptyTrash")]
+        public IActionResult EmptyTrash()
+        {
+            try
+            {
+                bool result = manager.EmptyTrash();
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<bool>() { Status = true, Masseage = "All Trashed Notes Deleted Successfully.", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
     }
