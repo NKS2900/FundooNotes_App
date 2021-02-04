@@ -31,7 +31,6 @@ namespace FundooNotes.Controllers
                 bool result = manager.AddNotes(model);
                 if (result)
                 {
-                    //return this.Ok(new { success = true, Message = "Note Created successfully" });
                     return this.Ok(new ResponseModel<NoteModel>() { Status = true, Masseage = "Note Created successfully", Data = model });
                 }
                 else
@@ -260,6 +259,52 @@ namespace FundooNotes.Controllers
                 if (result)
                 {
                     return this.Ok(new ResponseModel<bool>() { Status = true, Masseage = "All Trashed Notes Deleted Successfully.", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        [Route("color")]
+        public IActionResult ChangeColor(int noteId,string color)
+        {
+            try
+            {
+                var result = manager.ChangeColor(noteId, color);
+
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Color Changed.", Data = noteId });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        [Route("reminder")]
+        public IActionResult SetReminder(int noteId, string dateTime)
+        {
+            try
+            {
+                var result = manager.SetReminder(noteId, dateTime);
+
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Reminder Set Seccssfull.", Data = noteId });
                 }
                 else
                 {

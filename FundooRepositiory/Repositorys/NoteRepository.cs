@@ -260,5 +260,48 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool ChangeColor(int id, string color)
+        {
+            try
+            {
+                var note = fundooContext.NoteTable.Find(id);
+                if (note != null)
+                {
+                    note.Colour = color;
+                    this.fundooContext.Entry(note).State = EntityState.Modified;
+                    this.fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool SetReminder(int noteId, string dateTime)
+        {
+            try
+            {
+                if (noteId > 0)
+                {
+                    var note = fundooContext.NoteTable.Where(x => x.NoteId == noteId).FirstOrDefault();
+                    note.Reminder = dateTime;
+                    fundooContext.Entry(note).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

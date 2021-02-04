@@ -10,7 +10,8 @@ namespace FundooManager
     using System.Collections.Generic;
     using FundooModel.Models;
     using FundooRepositiory;
-    
+    using FundooManager;
+
     /// <summary>
     /// UserManager Class
     /// </summary>

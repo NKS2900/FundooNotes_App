@@ -49,6 +49,8 @@ namespace FundooNotes
             services.AddTransient<ILabelManager, LabelManager>();
             services.AddTransient<ICallboratorManager, CollaboratorManager>();
 
+            
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "JwtBearer";

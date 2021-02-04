@@ -10,6 +10,7 @@ namespace FundooManager
     using FundooModel.Models;
     using FundooRepositiory.Interface;
     using System.Collections.Generic;
+    using FundooManager;
 
     public class LabelManager : ILabelManager
     {

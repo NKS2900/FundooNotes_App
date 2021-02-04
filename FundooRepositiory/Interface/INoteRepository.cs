@@ -31,5 +31,9 @@ namespace FundooRepositiory.Interface
 
         public bool EmptyTrash();
 
+        public bool ChangeColor(int id, string color);
+
+        public bool SetReminder(int noteId, string dateTime);
+
     }
 }

@@ -3,6 +3,7 @@ using FundooRepositiory.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FundooManager;
 
 namespace FundooManager
 {
@@ -73,7 +74,7 @@ namespace FundooManager
             return result;
         }
 
-    public string RestoreTrashed(int noteId)
+        public string RestoreTrashed(int noteId)
         {
             var result = repository.RestoreTrash(noteId);
             return result;
@@ -88,6 +89,18 @@ namespace FundooManager
         public bool EmptyTrash()
         {
             bool result = repository.EmptyTrash();
+            return result;
+        }
+
+        public bool ChangeColor(int id, string color)
+        {
+            bool result = repository.ChangeColor(id, color);
+            return result;
+        }
+
+        public bool SetReminder(int noteId, string dateTime)
+        {
+            bool result = repository.SetReminder(noteId, dateTime);
             return result;
         }
     }
