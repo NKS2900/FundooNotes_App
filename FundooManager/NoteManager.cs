@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using FundooManager;
+using Microsoft.AspNetCore.Http;
 
 namespace FundooManager
 {
@@ -113,6 +114,12 @@ namespace FundooManager
         public bool UnsetReminder(int noteId)
         {
             bool result = repository.UnsetReminder(noteId);
+            return result;
+        }
+
+        public bool UploadImage(int noteId, IFormFile noteimage)
+        {
+            bool result = repository.UploadImage(noteId, noteimage);
             return result;
         }
     }

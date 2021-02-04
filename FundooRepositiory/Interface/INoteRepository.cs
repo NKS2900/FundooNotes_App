@@ -1,4 +1,5 @@
 ﻿using FundooModel.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,6 +39,8 @@ namespace FundooRepositiory.Interface
         public IEnumerable<NoteModel> GetAllReminderNotes();
 
         public bool UnsetReminder(int noteId);
+
+        public bool UploadImage(int noteId, IFormFile noteimage);
 
     }
 }

@@ -9,6 +9,7 @@ namespace FundooNotes.Controllers
 {
     using FundooManager;
     using FundooModel.Models;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
@@ -348,6 +349,25 @@ namespace FundooNotes.Controllers
                 {
                     return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
                 }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        [Route("image")]
+        public IActionResult InsertImage(int noteId, IFormFile image)
+        {
+            try
+            {
+                var result = this.manager.UploadImage(noteId, image);
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Image Inserted Seccssfully.", Data = noteId });
+                }
+                return this.BadRequest(new { Status = false, Message = result });
             }
             catch (Exception ex)
             {

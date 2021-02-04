@@ -1,5 +1,8 @@
-﻿using FundooModel.Models;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using FundooModel.Models;
 using FundooRepositiory.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -337,5 +340,33 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        [Obsolete]
+        public bool UploadImage(int noteId, IFormFile noteimage)
+        {
+            try
+            {
+                var notes = fundooContext.NoteTable.Where(x => x.NoteId == noteId).SingleOrDefault();
+                if (notes != null)
+                {
+                    Account account = new Account("duaxrtoyp", "187862979964913", "OMQLWFh2x1JCy99YV5wq8cVTj2Y");
+                    var path = noteimage.OpenReadStream();
+                    Cloudinary cloudinary = new Cloudinary(account);
+                    ImageUploadParams uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(noteimage.FileName, path)
+                    };
+                    var uploadResult = cloudinary.Upload(uploadParams);
+                    notes.Image = uploadResult.Uri.AbsolutePath;
+                    fundooContext.Entry(notes).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
