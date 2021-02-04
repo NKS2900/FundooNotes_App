@@ -35,6 +35,8 @@ namespace FundooManager
 
         public bool SetReminder(int noteId, string dateTime);
 
-	public IEnumerable<NoteModel> GetAllReminderNotes();
+        public IEnumerable<NoteModel> GetAllReminderNotes();
+
+        public bool UnsetReminder(int noteId);
     }
 }

@@ -21,8 +21,6 @@ namespace FundooRepositiory.Interface
 
         public string CheckArchive(int uid);
 
-	public IEnumerable<NoteModel> GetAllReminderNotes();
-
         public IEnumerable<NoteModel> RetriveArchiveNotes();
 
         public IEnumerable<NoteModel> RetriveTrashedNotes();
@@ -36,6 +34,10 @@ namespace FundooRepositiory.Interface
         public bool ChangeColor(int id, string color);
 
         public bool SetReminder(int noteId, string dateTime);
+
+        public IEnumerable<NoteModel> GetAllReminderNotes();
+
+        public bool UnsetReminder(int noteId);
 
     }
 }

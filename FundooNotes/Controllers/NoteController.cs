@@ -295,7 +295,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPut]
-        [Route("reminder")]
+        [Route("setReminder")]
         public IActionResult SetReminder(int noteId, string dateTime)
         {
             try
@@ -329,6 +329,29 @@ namespace FundooNotes.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { success = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        [Route("unsetReminder")]
+        public IActionResult UnsetReminder(int noteId)
+        {
+            try
+            {
+                var result = manager.UnsetReminder(noteId);
+
+                if (result)
+                {
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Reminder Unset Seccssfull.", Data = noteId });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Somethin went wrong." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new { Status = false, Message = ex.Message });
             }
         }
     }

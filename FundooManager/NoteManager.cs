@@ -109,5 +109,11 @@ namespace FundooManager
             var result = repository.GetAllReminderNotes();
             return result;
         }
+
+        public bool UnsetReminder(int noteId)
+        {
+            bool result = repository.UnsetReminder(noteId);
+            return result;
+        }
     }
 }

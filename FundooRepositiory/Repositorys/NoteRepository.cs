@@ -269,8 +269,8 @@ namespace FundooRepositiory.Repositorys
                 if (note != null)
                 {
                     note.Colour = color;
-                    this.fundooContext.Entry(note).State = EntityState.Modified;
-                    this.fundooContext.SaveChanges();
+                    fundooContext.Entry(note).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
                     return true;
                 }
                 else
@@ -316,5 +316,26 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool UnsetReminder(int noteId)
+        {
+            try
+            {
+                var note = fundooContext.NoteTable.Where(x => x.NoteId == noteId ).SingleOrDefault();
+                if (note != null)
+                {
+                    note.Reminder = null;
+                    fundooContext.Entry(note).State = EntityState.Modified;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
