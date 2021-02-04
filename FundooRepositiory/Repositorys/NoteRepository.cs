@@ -1,29 +1,45 @@
-﻿using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using FundooModel.Models;
-using FundooRepositiory.Interface;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// ----------------------------------------------------------------------------------------------------
+// <copyright file="NoteRepository.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Nijam Sayyad"/>
+// -----------------------------------------------------------------------------------------------------
 
 namespace FundooRepositiory.Repositorys
 {
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
+    using FundooModel.Models;
+    using FundooRepositiory.IRepositorys;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System;
+
     public class NoteRepository : INoteRepository
     {
         private readonly FundooContext fundooContext;
 
+        public IConfiguration Configuration { get; }
+
         /// <summary>
-        /// Constructor to Initializing FundooContext
+        /// Constructor to Initializing FundooContext and IConfiguration
         /// </summary>
-        /// <param name="fundooContext">fundooContext</param>
-        public NoteRepository(FundooContext fundooContext)
+        /// <param name="fundooContext">FundooContext instance</param>
+        /// <param name="configuration">Configuration instance</param>
+        public NoteRepository(FundooContext fundooContext, IConfiguration configuration)
         {
             this.fundooContext = fundooContext;
+            Configuration = configuration;
         }
 
+        /// <summary>
+        /// Add New Notes
+        /// </summary>
+        /// <param name="noteModel">NoteModel</param>
+        /// <returns>returns true or false</returns>
         public bool AddNote(NoteModel noteModel)
         {
             try
@@ -45,6 +61,10 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Retriving All Notes
+        /// </summary>
+        /// <returns>returns NoteModel</returns>
         public IEnumerable<NoteModel> RetriveAllNotes()
         {
             try
@@ -58,11 +78,16 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
-        public NoteModel RetrieveNotesById(int id)
+        /// <summary>
+        /// Retriving Note By ID
+        /// </summary>
+        /// <param name="id">note ID</param>
+        /// <returns>returns noteModel</returns>
+        public NoteModel RetrieveNotesById(int noteId)
         {
             try
             {
-                NoteModel notes = this.fundooContext.NoteTable.Where(x => x.NoteId == id).SingleOrDefault();
+                NoteModel notes = this.fundooContext.NoteTable.Where(x => x.NoteId == noteId).SingleOrDefault();
                 return notes;
             }
             catch (Exception ex)
@@ -71,6 +96,11 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Removing note to Trash
+        /// </summary>
+        /// <param name="noteId">Note ID</param>
+        /// <returns>returns true or false</returns>
         public bool RemoveNote(int noteId)
         {
             try
@@ -81,8 +111,6 @@ namespace FundooRepositiory.Repositorys
                     note.Trash = true;
                     fundooContext.Entry(note).State = EntityState.Modified;
                     fundooContext.SaveChanges();
-                    //fundooContext.NoteTable.Remove(userData);
-                    //fundooContext.SaveChangesAsync();
                     return true;
                 }
                 else
@@ -96,11 +124,17 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Updating Notes
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public bool UpdateNotes(NoteModel model)
         {
             try
             {
-                if (model.NoteId != 0)
+                var note = fundooContext.NoteTable.Where(x => x.NoteId == model.NoteId).SingleOrDefault();
+                if (note != null)
                 {
                     fundooContext.Entry(model).State = EntityState.Modified;
                     fundooContext.SaveChanges();
@@ -117,7 +151,12 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
-        public string CheckPin(int id)
+        /// <summary>
+        /// Pin or Unpin Notes
+        /// </summary>
+        /// <param name="id">User iD</param>
+        /// <returns>return True or false</returns>
+        public string PinOrUnpin(int id)
         {
             try
             {
@@ -145,7 +184,11 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
-        public string CheckArchive(int id)
+        /// <summary>
+        /// Method ro delet all notes from Trash.
+        /// </summary>
+        /// <returns>returns true or false</returns>
+        public string IsArchive(int id)
         {
             try
             {
@@ -173,6 +216,10 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Retriving All Archived Notes
+        /// </summary>
+        /// <returns>returns all archived notes</returns>
         public IEnumerable<NoteModel> RetriveArchiveNotes()
         {
             try
@@ -186,6 +233,10 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Retriving Trashed Notes
+        /// </summary>
+        /// <returns>returns Trashed Notes</returns>
         public IEnumerable<NoteModel> RetriveTrashedNotes()
         {
             try
@@ -199,6 +250,11 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Restoring Note from trash.
+        /// </summary>
+        /// <param name="noteId">note ID</param>
+        /// <returns>return true or false</returns>
         public string RestoreTrash(int noteId)
         {
             try
@@ -220,6 +276,10 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Deleting Trashed not forever.
+        /// </summary>
+        /// <returns>returns true or false</returns>
         public bool DeletNoteForever(int noteId)
         {
             try
@@ -242,6 +302,10 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Method ro delet all notes from Trash.
+        /// </summary>
+        /// <returns>returns true or false</returns>
         public bool EmptyTrash()
         {
             try
@@ -264,6 +328,12 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Updating Color in DB
+        /// </summary>
+        /// <param name="id">Note ID</param>
+        /// <param name="color">Color</param>
+        /// <returns></returns>
         public bool ChangeColor(int id, string color)
         {
             try
@@ -287,6 +357,12 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Set reminder
+        /// </summary>
+        /// <param name="noteId">Note ID</param>
+        /// <param name="dateTime">Date and Time</param>
+        /// <returns></returns>
         public bool SetReminder(int noteId, string dateTime)
         {
             try
@@ -307,6 +383,10 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Get all Reminder Notes
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<NoteModel> GetAllReminderNotes()
         {
             try
@@ -320,6 +400,11 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Reminder Unset 
+        /// </summary>
+        /// <param name="noteId">Note ID</param>
+        /// <returns></returns>
         public bool UnsetReminder(int noteId)
         {
             try
@@ -340,6 +425,12 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Uploading Imange on Cloud and adding URL in DB
+        /// </summary>
+        /// <param name="noteId">note ID</param>
+        /// <param name="noteimage">image</param>
+        /// <returns></returns>
         [Obsolete]
         public bool UploadImage(int noteId, IFormFile noteimage)
         {
@@ -348,7 +439,13 @@ namespace FundooRepositiory.Repositorys
                 var notes = fundooContext.NoteTable.Where(x => x.NoteId == noteId).SingleOrDefault();
                 if (notes != null)
                 {
-                    Account account = new Account("duaxrtoyp", "187862979964913", "OMQLWFh2x1JCy99YV5wq8cVTj2Y");
+                    Account account = new Account
+                    (
+                        Configuration["CloudinaryAccount:CloudName"],
+                        Configuration["CloudinaryAccount:ApiKey"],
+                        Configuration["CloudinaryAccount:ApiSecret"]
+                    );
+                    
                     var path = noteimage.OpenReadStream();
                     Cloudinary cloudinary = new Cloudinary(account);
                     ImageUploadParams uploadParams = new ImageUploadParams()

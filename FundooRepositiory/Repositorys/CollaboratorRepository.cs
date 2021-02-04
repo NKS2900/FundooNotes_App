@@ -1,12 +1,18 @@
-﻿using FundooModel.Models;
-using FundooRepositiory.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// ----------------------------------------------------------------------------------------------------
+// <copyright file="CollaboratorRepository.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Nijam Sayyad"/>
+// -----------------------------------------------------------------------------------------------------
 
 namespace FundooRepositiory.Repositorys
 {
+    using FundooModel.Models;
+    using FundooRepositiory.IRepositorys;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class CollaboratorRepository : ICollaborator
     {
         private readonly FundooContext fundooContext;
@@ -20,6 +26,11 @@ namespace FundooRepositiory.Repositorys
             this.fundooContext = fundooContext;
         }
 
+        /// <summary>
+        /// Add New Collaborator
+        /// </summary>
+        /// <param name="model">CollaboratorModel</param>
+        /// <returns></returns>
         public bool AddCollaborator(CollaboratorModel model)
         {
             try
@@ -34,6 +45,10 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Get all Collaborator.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<CollaboratorModel> RetriveCollaborator()
         {
             try
@@ -47,6 +62,11 @@ namespace FundooRepositiory.Repositorys
             }
         }
 
+        /// <summary>
+        /// Delet Collaborator
+        /// </summary>
+        /// <param name="id">Collaborator ID</param>
+        /// <returns></returns>
         public bool DeleteCollaborator(int id)
         {
             try

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundooRepositiory.Migrations
 {
     [DbContext(typeof(FundooContext))]
-    [Migration("20210203071941_Fundoo")]
+    [Migration("20210204043929_Fundoo")]
     partial class Fundoo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,8 @@ namespace FundooRepositiory.Migrations
 
                     b.HasKey("CallId");
 
+                    b.HasIndex("NoteId");
+
                     b.ToTable("CollaboratorTable");
                 });
 
@@ -57,6 +59,8 @@ namespace FundooRepositiory.Migrations
 
                     b.HasKey("LabelId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("LabelTable");
                 });
 
@@ -68,9 +72,6 @@ namespace FundooRepositiory.Migrations
 
                     b.Property<bool>("Archive")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Collaborator")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Colour")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -97,6 +98,8 @@ namespace FundooRepositiory.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("NoteId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("NoteTable");
                 });
@@ -126,6 +129,33 @@ namespace FundooRepositiory.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("UserTable");
+                });
+
+            modelBuilder.Entity("FundooModel.Models.CollaboratorModel", b =>
+                {
+                    b.HasOne("FundooModel.Models.NoteModel", "NoteModel")
+                        .WithMany()
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FundooModel.Models.LabelModel", b =>
+                {
+                    b.HasOne("FundooModel.Models.UserModel", "UserModel")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FundooModel.Models.NoteModel", b =>
+                {
+                    b.HasOne("FundooModel.Models.UserModel", "UserModel")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

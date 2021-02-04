@@ -17,7 +17,13 @@ namespace FundooNotes.Controllers
             this.manager = manager;
         }
 
+        /// <summary>
+        /// Controller for Add New Collaborator.
+        /// </summary>
+        /// <param name="model">Collaborator Model</param>
+        /// <returns></returns>
         [HttpPost]
+        [Route("addColl")]
         public IActionResult AddCoallaborator([FromBody] CollaboratorModel model)
         {
             try
@@ -38,7 +44,12 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Controller For Retriving Collaborator.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [Route("getColl")]
         public IActionResult RetriveCollaborator()
         {
             try
@@ -52,15 +63,21 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Controller for Delete Collaborator.
+        /// </summary>
+        /// <param name="collId"></param>
+        /// <returns></returns>
         [HttpDelete]
-        public IActionResult DeletLabel(int Coll_id)
+        [Route("{collId}")]
+        public IActionResult DeletCollaborator(int collId)
         {
             try
             {
-                bool result = manager.DeleteCollaborator(Coll_id);
+                bool result = manager.DeleteCollaborator(collId);
                 if (result)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Collaborator Deleted Successfully", Data = Coll_id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Collaborator Deleted Successfully", Data = collId });
                 }
                 else
                 {

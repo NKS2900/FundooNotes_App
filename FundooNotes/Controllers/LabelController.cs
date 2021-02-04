@@ -24,6 +24,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
+        [Route("addLabel")]
         public IActionResult AddLabels([FromBody] LabelModel model)
         {
             try
@@ -45,6 +46,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet]
+        [Route("getLabels")]
         public IActionResult RetriveAllLabels()
         {
             try
@@ -59,12 +61,12 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet]
-        [Route("getById")]
-        public IActionResult GetLabelById(int id)
+        [Route("{labelId}")]
+        public IActionResult GetLabelById(int labelId)
         {
             try
             {
-                LabelModel labels = manager.RetrieveLabelById(id);
+                LabelModel labels = manager.RetrieveLabelById(labelId);
                 return this.Ok(new ResponseModel<LabelModel>() { Status = true, Masseage = "Label Retrived Successfully.", Data = labels });
             }
             catch (Exception ex)
@@ -74,6 +76,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPut]
+        [Route("updateLabel")]
         public IActionResult UpdateLabel(LabelModel label)
         {
             try
@@ -95,14 +98,15 @@ namespace FundooNotes.Controllers
         }
 
         [HttpDelete]
-        public IActionResult DeletLabel(int id)
+        [Route("{labelId}")]
+        public IActionResult DeletLabel(int labelId)
         {
             try
             {
-                bool result = manager.DeleteLable(id);
+                bool result = manager.DeleteLable(labelId);
                 if (result)
                 {
-                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Label Deleted Successfully", Data = id });
+                    return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Label Deleted Successfully", Data = labelId });
                 }
                 else
                 {

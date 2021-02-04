@@ -5,7 +5,7 @@
 // <creator name="Nijam Sayyad"/>
 // -----------------------------------------------------------------------------------------------------
 
-namespace FundooRepositiory
+namespace FundooRepositiory.IRepositorys
 {
     using System.Collections.Generic;
     using FundooModel.Models;
@@ -13,7 +13,7 @@ namespace FundooRepositiory
     /// <summary>
     /// Interface for Repository
     /// </summary>
-    public interface IRepository
+    public interface IUserRepository
     {
         /// <summary>
         /// RegisterUser Method

@@ -9,8 +9,9 @@ namespace FundooNotes
 {
     using FundooManager;
     using FundooRepositiory;
-    using FundooRepositiory.Interface;
+    using FundooRepositiory.IRepositorys;
     using FundooRepositiory.Repositorys;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace FundooNotes
     using NLog;
     using System;
     using System.IO;
+    using System.Text;
 
     public class Startup
     {
@@ -39,7 +41,7 @@ namespace FundooNotes
         {
             services.AddMvc();
             services.AddDbContext<FundooContext>(options => options.UseMySql(this.Configuration["Data:ConnectionStrings:DefaultConnection"]));
-            services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<INoteRepository, NoteRepository>();
             services.AddTransient<ILabelRepository, LabelRepository>();
             services.AddTransient<ICollaborator, CollaboratorRepository>();
@@ -49,29 +51,54 @@ namespace FundooNotes
             services.AddTransient<ILabelManager, LabelManager>();
             services.AddTransient<ICallboratorManager, CollaboratorManager>();
 
-            
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = "JwtBearer";
-                options.DefaultChallengeScheme = "JwtBearer";
-            }).AddJwtBearer("JwtBearer", jwtOptions =>
-            {
-                jwtOptions.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    IssuerSigningKey = Repository.LOGIN_KEY,
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(10)
-                };
-            });
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "My Demo API", Version = "1.0" });
+                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "Fundoo", Version = "v1.0", Description = "Fundoo Application" });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
             });
+            var key = Encoding.UTF8.GetBytes(Configuration["Key"]);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = false;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    //ClockSkew = TimeSpan.Zero
+                };
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,9 +122,9 @@ namespace FundooNotes
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

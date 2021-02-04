@@ -8,7 +8,7 @@
 namespace FundooRepositiory.Repositorys
 {
     using FundooModel.Models;
-    using FundooRepositiory.Interface;
+    using FundooRepositiory.IRepositorys;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;

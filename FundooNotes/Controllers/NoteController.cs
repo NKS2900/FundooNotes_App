@@ -9,6 +9,7 @@ namespace FundooNotes.Controllers
 {
     using FundooManager;
     using FundooModel.Models;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -16,6 +17,7 @@ namespace FundooNotes.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class NoteController : Controller
     {
         private readonly INoteManager manager;
@@ -25,6 +27,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
+        [Route("addNote")]
         public IActionResult AddNewNote([FromBody] NoteModel model)
         {
             try
@@ -46,6 +49,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet]
+        [Route("getAllNotes")]
         public IActionResult RetriveAllNotes()
         {
             try
@@ -60,7 +64,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet]
-        [Route("GetById")]
+        [Route("{noteId}")]
         public IActionResult GetNotesById(int noteId)
         {
             try
@@ -82,6 +86,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpDelete]
+        [Route("{noteId}")]
         public IActionResult DeleteNotes(int noteId)
         {
             try
@@ -103,6 +108,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPut]
+        [Route("updateNotes")]
         public IActionResult UpdateNotes(NoteModel model)
         {
             try
@@ -125,11 +131,11 @@ namespace FundooNotes.Controllers
 
         [HttpPut]
         [Route("pin")]
-        public IActionResult CheckPin(int noteId)
+        public IActionResult PinUnpin(int noteId)
         {
             try
             {
-                var result = manager.CheckPin(noteId);
+                var result = manager.PinOrUnpin(noteId);
                 if (result=="PIN")
                 {
                     return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Pined is Successfully.", Data = noteId });
@@ -151,11 +157,11 @@ namespace FundooNotes.Controllers
 
         [HttpPut]
         [Route("archive")]
-        public IActionResult CheckArchive(int noteId)
+        public IActionResult Archive(int noteId)
         {
             try
             {
-                var result = manager.CheckArchive(noteId);
+                var result = manager.IsArchive(noteId);
                 if (result == "ARCHIVE")
                 {
                     return this.Ok(new ResponseModel<int>() { Status = true, Masseage = "Note Added to archive Successfully.", Data = noteId });

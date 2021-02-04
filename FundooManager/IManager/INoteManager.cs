@@ -1,11 +1,16 @@
-﻿using FundooModel.Models;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// ----------------------------------------------------------------------------------------------------
+// <copyright file="INoteManager.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Nijam Sayyad"/>
+// -----------------------------------------------------------------------------------------------------
 
 namespace FundooManager
 {
+    using FundooModel.Models;
+    using Microsoft.AspNetCore.Http;
+    using System.Collections.Generic;
+
     public interface INoteManager
     {
         public bool AddNotes(NoteModel model);
@@ -18,9 +23,9 @@ namespace FundooManager
 
         public bool UpdateNotes(NoteModel model);
 
-        public string CheckPin(int noteId);
+        public string PinOrUnpin(int noteId);
 
-        public string CheckArchive(int noteId);
+        public string IsArchive(int noteId);
 
         public IEnumerable<NoteModel> RetriveArchiveNotes();
 

@@ -16,12 +16,12 @@ namespace FundooNotes.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class FundooController : Controller
+    public class UserController : Controller
     { 
         private readonly IUserManager manager;
 
-        private readonly ILogger<FundooController> _logger;
-        public FundooController(IUserManager manager, ILogger<FundooController> _logger)
+        private readonly ILogger<UserController> _logger;
+        public UserController(IUserManager manager, ILogger<UserController> _logger)
         {
 
             this.manager = manager;
@@ -29,6 +29,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
+        [Route("register")]
         public IActionResult RegisterUsers([FromBody] UserModel model)
         {
             _logger.LogInformation("The API for Registering new User.");
@@ -64,7 +65,7 @@ namespace FundooNotes.Controllers
                 if (result)
                 {
                     string getToken = manager.GenerateToken(model.Email);
-                    return this.Ok(new { success = true, Message = "Login successfully" });
+                    return this.Ok(new { success = true, Message = "Login successfully", Token = getToken }) ;
                 }
                 else
                 {
@@ -74,7 +75,7 @@ namespace FundooNotes.Controllers
             catch (Exception ex)
             {
                 _logger.LogInformation("Exception Occurs at the time of login "+ex.Message);
-                return this.NotFound(new { seccess=false, Massage=ex.Message});
+                return this.NotFound(new { success=false, Massage=ex.Message});
             }
             
         }
@@ -100,11 +101,12 @@ namespace FundooNotes.Controllers
             catch (Exception ex)
             {
                 _logger.LogInformation("Exception Occurs " + ex.Message);
-                return this.NotFound(new { seccess = false, Massage = ex.Message });
+                return this.NotFound(new { success = false, Massage = ex.Message });
             }
         }
 
         [HttpPut]
+        [Route("resetPass")]
         public IActionResult ResetPasswords([FromBody] LoginModel model)
         {
             try
@@ -127,6 +129,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet]
+        [Route("getAllUser")]
         public IActionResult ShowAllUsers()
         {
             try

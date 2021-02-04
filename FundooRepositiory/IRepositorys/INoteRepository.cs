@@ -1,11 +1,16 @@
-﻿using FundooModel.Models;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// ----------------------------------------------------------------------------------------------------
+// <copyright file="INoteRepository.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Nijam Sayyad"/>
+// -----------------------------------------------------------------------------------------------------
 
-namespace FundooRepositiory.Interface
+namespace FundooRepositiory.IRepositorys
 {
+    using FundooModel.Models;
+    using Microsoft.AspNetCore.Http;
+    using System.Collections.Generic;
+
     public interface INoteRepository
     {
         public bool AddNote(NoteModel model);
@@ -18,9 +23,9 @@ namespace FundooRepositiory.Interface
 
         public bool UpdateNotes(NoteModel model);
 
-        public string CheckPin(int uid);
+        public string PinOrUnpin(int uid);
 
-        public string CheckArchive(int uid);
+        public string IsArchive(int uid);
 
         public IEnumerable<NoteModel> RetriveArchiveNotes();
 

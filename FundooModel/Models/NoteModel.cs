@@ -23,8 +23,6 @@ namespace FundooModel.Models
 
         public string Reminder { get; set; }
 
-        public string Collaborator { get; set; }
-
         public string Colour { get; set; }
 
         public string Image { get; set; }
@@ -37,9 +35,11 @@ namespace FundooModel.Models
 
         [DefaultValue(false)]
         public bool Trash { get; set; }
+  
+        public int UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public int UserId { get; set; }
+        public virtual UserModel UserModel { get; set; }
 
     }
 }

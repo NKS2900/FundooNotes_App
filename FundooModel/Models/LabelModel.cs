@@ -1,4 +1,9 @@
-﻿
+﻿// ----------------------------------------------------------------------------------------------------
+// <copyright file="LabelModel.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Nijam Sayyad"/>
+// -----------------------------------------------------------------------------------------------------
 
 namespace FundooModel.Models
 {
@@ -16,8 +21,10 @@ namespace FundooModel.Models
 
         public int NoteId { get; set; }
 
-        [ForeignKey("UserModel")]
         public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual UserModel UserModel { get; set; }
 
     }
 }
