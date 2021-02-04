@@ -303,5 +303,18 @@ namespace FundooRepositiory.Repositorys
                 throw new Exception(ex.Message);
             }
         }
+
+        public IEnumerable<NoteModel> GetAllReminderNotes()
+        {
+            try
+            {
+                IEnumerable<NoteModel> notes = fundooContext.NoteTable.Where(x => x.Reminder != null);
+                return notes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

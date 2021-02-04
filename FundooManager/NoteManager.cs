@@ -103,5 +103,11 @@ namespace FundooManager
             bool result = repository.SetReminder(noteId, dateTime);
             return result;
         }
+
+        public IEnumerable<NoteModel> GetAllReminderNotes()
+        {
+            var result = repository.GetAllReminderNotes();
+            return result;
+        }
     }
 }
